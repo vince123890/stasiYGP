@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Church } from "lucide-react";
+import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
@@ -38,9 +38,7 @@ export default function LoginPage() {
     <Container className="flex min-h-[70vh] items-center justify-center py-16">
       <Card className="w-full max-w-sm p-8">
         <div className="flex items-center gap-2 font-display text-lg text-parish-900">
-          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-parish-600 text-white">
-            <Church size={18} />
-          </span>
+          <Image src="/logo.png" alt="" width={36} height={36} className="h-9 w-9 object-contain" />
           Login Admin
         </div>
 

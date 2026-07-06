@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
-import { Menu, X, Church, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
@@ -35,9 +36,7 @@ export function Header() {
     <header className="sticky top-0 z-50 border-b border-parish-100/80 bg-cream-50/90 backdrop-blur">
       <Container className="flex h-16 items-center justify-between">
         <Link href="/" className="flex items-center gap-2 font-display text-lg text-parish-900">
-          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-parish-600 text-white">
-            <Church size={18} />
-          </span>
+          <Image src="/logo.png" alt="Logo Stasi Yohanes Gabriel Perboyre" width={36} height={36} className="h-9 w-9 object-contain" />
           <span className="hidden sm:inline">Stasi Yohanes Gabriel Perboyre</span>
           <span className="sm:hidden">StasiYGP</span>
         </Link>

@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { Church, MapPin, Phone, Mail, Clock } from "lucide-react";
+import Image from "next/image";
+import { MapPin, Phone, Mail, Clock } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { getParishProfile } from "@/lib/queries";
 
@@ -11,8 +12,8 @@ export async function Footer() {
       <Container className="grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-4">
         <div>
           <div className="flex items-center gap-2 font-display text-lg">
-            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10">
-              <Church size={18} />
+            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 p-1">
+              <Image src="/logo.png" alt="" width={28} height={28} className="h-full w-full object-contain" />
             </span>
             {profile?.stasi_name ?? "Stasi Yohanes Gabriel Perboyre"}
           </div>
