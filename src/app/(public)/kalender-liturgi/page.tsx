@@ -117,8 +117,17 @@ export default async function KalenderLiturgiPage() {
       )}
 
       <p className="mt-8 text-xs text-parish-700/60">
-        Kalender liturgi dihitung otomatis berdasarkan Kalender Romawi Umum. Untuk tanggal
-        yang bersifat lokal/khusus paroki, data dapat diisi manual oleh admin.
+        Referensi bacaan harian bersumber dari{" "}
+        <a
+          href="https://www.imankatolik.or.id"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline hover:text-parish-700"
+        >
+          imankatolik.or.id
+        </a>
+        . Nama perayaan &amp; warna liturgi dihitung berdasarkan Kalender Romawi Umum. Untuk
+        tanggal khusus paroki, data dapat diisi manual oleh admin.
       </p>
     </Container>
   );

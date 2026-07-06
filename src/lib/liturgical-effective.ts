@@ -1,5 +1,10 @@
 import { getTodayLiturgicalDay, getLiturgicalCalendarRange } from "@/lib/queries";
 import { getRomcalDay, getRomcalRange } from "@/lib/romcal-id";
+import {
+  fetchImankatolikDay,
+  fetchImankatolikRange,
+  type ImankatolikDay,
+} from "@/lib/imankatolik";
 import { jakartaDateString } from "@/lib/format";
 import type { LiturgicalColor, LiturgicalDay } from "@/types/database";
 
@@ -17,7 +22,7 @@ export interface EffectiveLiturgicalDay {
   liturgical_color: LiturgicalColor;
   rank: string | null;
   readings: EffectiveReadings;
-  source: "cms" | "romcal";
+  source: "cms" | "imankatolik" | "romcal";
 }
 
 const EMPTY_READINGS: EffectiveReadings = {
@@ -45,45 +50,91 @@ function fromCms(day: LiturgicalDay): EffectiveLiturgicalDay {
   };
 }
 
-/** Today's liturgical day: manual CMS entry wins, otherwise computed locally via Romcal. */
-export async function getEffectiveToday(): Promise<EffectiveLiturgicalDay | null> {
-  const cms = await getTodayLiturgicalDay().catch(() => null);
-  if (cms) return fromCms(cms);
+/**
+ * Merges imankatolik-scraped readings over the Romcal base for a given date.
+ * imankatolik provides the Indonesian celebration name and reading references;
+ * Romcal provides the rank and a reliable color fallback.
+ */
+function mergeImankatolik(
+  date: string,
+  imk: ImankatolikDay | undefined
+): EffectiveLiturgicalDay {
+  const romcal = getRomcalDay(date);
 
-  const computed = getRomcalDay(jakartaDateString());
-  if (!computed) return null;
+  const base: EffectiveLiturgicalDay = romcal
+    ? {
+        calendar_date: date,
+        celebration_name: romcal.celebration_name,
+        liturgical_color: romcal.liturgical_color,
+        rank: romcal.rank,
+        readings: EMPTY_READINGS,
+        source: "romcal",
+      }
+    : {
+        calendar_date: date,
+        celebration_name: "Hari Biasa",
+        liturgical_color: "hijau",
+        rank: null,
+        readings: EMPTY_READINGS,
+        source: "romcal",
+      };
+
+  if (!imk) return base;
 
   return {
-    calendar_date: computed.calendar_date,
-    celebration_name: computed.celebration_name,
-    liturgical_color: computed.liturgical_color,
-    rank: computed.rank,
-    readings: EMPTY_READINGS,
-    source: "romcal",
+    calendar_date: date,
+    celebration_name: imk.celebration_name || base.celebration_name,
+    liturgical_color: imk.liturgical_color ?? base.liturgical_color,
+    rank: base.rank,
+    readings: {
+      first_reading: imk.first_reading,
+      psalm: imk.psalm,
+      second_reading: imk.second_reading,
+      gospel: imk.gospel,
+      office_reading: imk.office_reading,
+    },
+    source: "imankatolik",
   };
 }
 
-/** Date range: CMS entries win per date, otherwise filled in via Romcal. */
+/** Today's liturgical day: CMS (manual) > imankatolik (scrape) > Romcal (fallback). */
+export async function getEffectiveToday(): Promise<EffectiveLiturgicalDay | null> {
+  const today = jakartaDateString();
+
+  const cms = await getTodayLiturgicalDay().catch(() => null);
+  if (cms) return fromCms(cms);
+
+  const imk = await fetchImankatolikDay(today);
+  const merged = mergeImankatolik(today, imk ?? undefined);
+  // Only return null if we genuinely have nothing (no romcal + no imankatolik).
+  return merged;
+}
+
+/** Date range: CMS wins per date, then imankatolik, then Romcal base. */
 export async function getEffectiveRange(
   from: string,
   to: string
 ): Promise<EffectiveLiturgicalDay[]> {
-  const [cmsDays, computedDays] = await Promise.all([
+  const [cmsDays, imkDays, romcalDays] = await Promise.all([
     getLiturgicalCalendarRange(from, to).catch(() => []),
+    fetchImankatolikRange(from, to),
     Promise.resolve(getRomcalRange(from, to)),
   ]);
 
+  const imkByDate = new Map(imkDays.map((d) => [d.calendar_date, d]));
   const byDate = new Map<string, EffectiveLiturgicalDay>();
-  for (const day of computedDays) {
-    byDate.set(day.calendar_date, {
-      calendar_date: day.calendar_date,
-      celebration_name: day.celebration_name,
-      liturgical_color: day.liturgical_color,
-      rank: day.rank,
-      readings: EMPTY_READINGS,
-      source: "romcal",
-    });
+
+  // Base layer: Romcal for every date in the range.
+  for (const day of romcalDays) {
+    byDate.set(day.calendar_date, mergeImankatolik(day.calendar_date, imkByDate.get(day.calendar_date)));
   }
+  // Ensure imankatolik-only dates (not produced by Romcal) are still present.
+  for (const day of imkDays) {
+    if (!byDate.has(day.calendar_date)) {
+      byDate.set(day.calendar_date, mergeImankatolik(day.calendar_date, day));
+    }
+  }
+  // Top layer: manual CMS entries win outright.
   for (const day of cmsDays) byDate.set(day.calendar_date, fromCms(day));
 
   return [...byDate.values()].sort((a, b) => a.calendar_date.localeCompare(b.calendar_date));
