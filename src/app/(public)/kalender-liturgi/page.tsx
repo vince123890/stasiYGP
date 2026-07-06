@@ -1,11 +1,9 @@
-import { BookOpen } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Card } from "@/components/ui/Card";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { formatDate, jakartaDateString } from "@/lib/format";
 import { LITURGICAL_COLOR_STYLES } from "@/lib/liturgical-color";
 import { getEffectiveToday, getEffectiveRange } from "@/lib/liturgical-effective";
-import { IMANKATOLIK_SOURCE_URL } from "@/lib/imankatolik";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -51,19 +49,8 @@ export default async function KalenderLiturgiPage() {
               Warna Liturgi: {LITURGICAL_COLOR_STYLES[todayDay.liturgical_color].label}
             </span>
           </div>
-
-          {todayDay.readings.length > 0 && (
-            <div className="mt-5 border-t border-parish-900/10 pt-5">
-              <p className="flex items-center gap-1.5 text-sm font-semibold text-parish-800">
-                <BookOpen size={15} />
-                Bacaan Hari Ini
-              </p>
-              <ul className="mt-2 space-y-1 text-sm text-parish-800/90">
-                {todayDay.readings.map((r) => (
-                  <li key={r}>{r}</li>
-                ))}
-              </ul>
-            </div>
+          {todayDay.rank && (
+            <p className="mt-2 text-sm text-parish-700/70">{todayDay.rank}</p>
           )}
         </Card>
       )}
@@ -86,10 +73,8 @@ export default async function KalenderLiturgiPage() {
                     <p className="mt-0.5 font-display text-base text-parish-900">
                       {day.celebration_name}
                     </p>
-                    {day.readings.length > 0 && (
-                      <p className="mt-1 text-sm text-parish-700/70">
-                        {day.readings.join(" · ")}
-                      </p>
+                    {day.rank && (
+                      <p className="mt-1 text-sm text-parish-700/70">{day.rank}</p>
                     )}
                   </div>
                 </div>
@@ -100,15 +85,8 @@ export default async function KalenderLiturgiPage() {
       )}
 
       <p className="mt-8 text-xs text-parish-700/60">
-        Sumber data kalender liturgi:{" "}
-        <a
-          href={IMANKATOLIK_SOURCE_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="underline hover:text-parish-700"
-        >
-          imankatolik.or.id
-        </a>
+        Kalender liturgi dihitung otomatis berdasarkan Kalender Romawi Umum. Untuk tanggal
+        yang bersifat lokal/khusus paroki, data dapat diisi manual oleh admin.
       </p>
     </Container>
   );

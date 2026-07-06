@@ -1,10 +1,6 @@
 import { getTodayLiturgicalDay, getLiturgicalCalendarRange } from "@/lib/queries";
+import { getRomcalDay, getRomcalRange } from "@/lib/romcal-id";
 import { jakartaDateString } from "@/lib/format";
-import {
-  fetchImankatolikDay,
-  fetchImankatolikRange,
-  type ImankatolikDay,
-} from "@/lib/imankatolik";
 import type { LiturgicalColor, LiturgicalDay } from "@/types/database";
 
 export interface EffectiveLiturgicalDay {
@@ -13,7 +9,7 @@ export interface EffectiveLiturgicalDay {
   liturgical_color: LiturgicalColor;
   rank: string | null;
   readings: string[];
-  source: "cms" | "imankatolik";
+  source: "cms" | "romcal";
 }
 
 function fromCms(day: LiturgicalDay): EffectiveLiturgicalDay {
@@ -29,38 +25,45 @@ function fromCms(day: LiturgicalDay): EffectiveLiturgicalDay {
   };
 }
 
-function fromImankatolik(day: ImankatolikDay): EffectiveLiturgicalDay {
-  return {
-    calendar_date: day.calendar_date,
-    celebration_name: day.celebration_name,
-    liturgical_color: day.liturgical_color,
-    rank: null,
-    readings: day.readings,
-    source: "imankatolik",
-  };
-}
-
-/** Today's liturgical day: manual CMS entry wins, otherwise imankatolik.or.id. */
+/** Today's liturgical day: manual CMS entry wins, otherwise computed locally via Romcal. */
 export async function getEffectiveToday(): Promise<EffectiveLiturgicalDay | null> {
   const cms = await getTodayLiturgicalDay().catch(() => null);
   if (cms) return fromCms(cms);
 
-  const external = await fetchImankatolikDay(jakartaDateString());
-  return external ? fromImankatolik(external) : null;
+  const computed = getRomcalDay(jakartaDateString());
+  if (!computed) return null;
+
+  return {
+    calendar_date: computed.calendar_date,
+    celebration_name: computed.celebration_name,
+    liturgical_color: computed.liturgical_color,
+    rank: computed.rank,
+    readings: [],
+    source: "romcal",
+  };
 }
 
-/** Date range: merges CMS entries (which win per date) over imankatolik data. */
+/** Date range: CMS entries win per date, otherwise filled in via Romcal. */
 export async function getEffectiveRange(
   from: string,
   to: string
 ): Promise<EffectiveLiturgicalDay[]> {
-  const [cmsDays, externalDays] = await Promise.all([
+  const [cmsDays, computedDays] = await Promise.all([
     getLiturgicalCalendarRange(from, to).catch(() => []),
-    fetchImankatolikRange(from, to),
+    Promise.resolve(getRomcalRange(from, to)),
   ]);
 
   const byDate = new Map<string, EffectiveLiturgicalDay>();
-  for (const day of externalDays) byDate.set(day.calendar_date, fromImankatolik(day));
+  for (const day of computedDays) {
+    byDate.set(day.calendar_date, {
+      calendar_date: day.calendar_date,
+      celebration_name: day.celebration_name,
+      liturgical_color: day.liturgical_color,
+      rank: day.rank,
+      readings: [],
+      source: "romcal",
+    });
+  }
   for (const day of cmsDays) byDate.set(day.calendar_date, fromCms(day));
 
   return [...byDate.values()].sort((a, b) => a.calendar_date.localeCompare(b.calendar_date));

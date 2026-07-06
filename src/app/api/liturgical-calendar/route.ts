@@ -9,11 +9,11 @@ export async function GET(request: Request) {
   try {
     if (from && to) {
       const days = await getEffectiveRange(from, to);
-      return NextResponse.json({ data: days, source: "cms+imankatolik" });
+      return NextResponse.json({ data: days, source: "cms+romcal" });
     }
 
     const today = await getEffectiveToday();
-    return NextResponse.json({ data: today, source: "cms+imankatolik" });
+    return NextResponse.json({ data: today, source: "cms+romcal" });
   } catch {
     return NextResponse.json(
       { error: "Gagal mengambil kalender liturgi" },
