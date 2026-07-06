@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/Button";
 const NAV_LINKS = [
   { href: "/", label: "Beranda" },
   { href: "/jadwal-misa", label: "Jadwal Misa" },
+  { href: "/kalender-liturgi", label: "Kalender Liturgi" },
   { href: "/artikel", label: "Artikel" },
   { href: "/pengumuman", label: "Pengumuman" },
 ];

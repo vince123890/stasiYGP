@@ -9,8 +9,8 @@ import {
   getAllMassSchedules,
   getLatestArticles,
   getLatestAnnouncements,
-  getTodayLiturgicalDay,
 } from "@/lib/queries";
+import { getEffectiveToday } from "@/lib/liturgical-effective";
 
 export const revalidate = 300;
 
@@ -20,7 +20,7 @@ export default async function HomePage() {
     getAllMassSchedules(),
     getLatestArticles(6),
     getLatestAnnouncements(3),
-    getTodayLiturgicalDay(),
+    getEffectiveToday(),
   ]);
 
   return (

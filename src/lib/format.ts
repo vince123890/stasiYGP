@@ -28,6 +28,17 @@ export function formatDateShort(iso: string): string {
   });
 }
 
+/** Returns YYYY-MM-DD for today (or offset by N days) in the Asia/Jakarta timezone. */
+export function jakartaDateString(offsetDays = 0): string {
+  const date = new Date(Date.now() + offsetDays * 86400000);
+  return new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Asia/Jakarta",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(date);
+}
+
 export function stripHtmlExcerpt(html: string, maxLength = 140): string {
   const text = html.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
   return text.length > maxLength ? `${text.slice(0, maxLength).trimEnd()}…` : text;

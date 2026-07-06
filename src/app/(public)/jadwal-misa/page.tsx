@@ -3,7 +3,9 @@ import { Container } from "@/components/ui/Container";
 import { Card } from "@/components/ui/Card";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { LiturgicalWeekList } from "@/components/liturgical/LiturgicalWeekList";
-import { getAllMassSchedules, getLiturgicalCalendarRange } from "@/lib/queries";
+import { getAllMassSchedules } from "@/lib/queries";
+import { getEffectiveRange } from "@/lib/liturgical-effective";
+import { jakartaDateString } from "@/lib/format";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -23,15 +25,12 @@ function groupByChapel(schedules: Awaited<ReturnType<typeof getAllMassSchedules>
 }
 
 export default async function JadwalMisaPage() {
-  const today = new Date();
-  const from = today.toISOString().slice(0, 10);
-  const toDate = new Date(today);
-  toDate.setDate(toDate.getDate() + 7);
-  const to = toDate.toISOString().slice(0, 10);
+  const from = jakartaDateString();
+  const to = jakartaDateString(7);
 
   const [schedules, liturgicalDays] = await Promise.all([
     getAllMassSchedules(),
-    getLiturgicalCalendarRange(from, to),
+    getEffectiveRange(from, to),
   ]);
 
   const grouped = groupByChapel(schedules);

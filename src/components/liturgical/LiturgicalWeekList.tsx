@@ -1,9 +1,9 @@
 import { Card } from "@/components/ui/Card";
 import { formatDate } from "@/lib/format";
 import { LITURGICAL_COLOR_STYLES } from "@/lib/liturgical-color";
-import type { LiturgicalDay } from "@/types/database";
+import type { EffectiveLiturgicalDay } from "@/lib/liturgical-effective";
 
-export function LiturgicalWeekList({ days }: { days: LiturgicalDay[] }) {
+export function LiturgicalWeekList({ days }: { days: EffectiveLiturgicalDay[] }) {
   if (days.length === 0) return null;
 
   return (
@@ -11,7 +11,7 @@ export function LiturgicalWeekList({ days }: { days: LiturgicalDay[] }) {
       {days.map((day) => {
         const color = LITURGICAL_COLOR_STYLES[day.liturgical_color];
         return (
-          <div key={day.id} className="flex items-start gap-4 p-5">
+          <div key={day.calendar_date} className="flex items-start gap-4 p-5">
             <span className={`mt-1.5 h-3 w-3 shrink-0 rounded-full ${color.dot}`} />
             <div>
               <p className="text-xs font-medium uppercase tracking-wide text-parish-500">
@@ -23,9 +23,9 @@ export function LiturgicalWeekList({ days }: { days: LiturgicalDay[] }) {
               {day.rank && (
                 <p className="mt-0.5 text-xs text-parish-700/60">{day.rank}</p>
               )}
-              {day.gospel && (
+              {day.readings.length > 0 && (
                 <p className="mt-2 text-sm text-parish-700/80">
-                  <span className="font-semibold">Injil:</span> {day.gospel}
+                  {day.readings.join(" · ")}
                 </p>
               )}
             </div>

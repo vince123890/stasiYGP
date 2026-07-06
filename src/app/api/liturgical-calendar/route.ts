@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getLiturgicalCalendarRange, getTodayLiturgicalDay } from "@/lib/queries";
+import { getEffectiveRange, getEffectiveToday } from "@/lib/liturgical-effective";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -8,12 +8,12 @@ export async function GET(request: Request) {
 
   try {
     if (from && to) {
-      const days = await getLiturgicalCalendarRange(from, to);
-      return NextResponse.json({ data: days });
+      const days = await getEffectiveRange(from, to);
+      return NextResponse.json({ data: days, source: "cms+imankatolik" });
     }
 
-    const today = await getTodayLiturgicalDay();
-    return NextResponse.json({ data: today });
+    const today = await getEffectiveToday();
+    return NextResponse.json({ data: today, source: "cms+imankatolik" });
   } catch {
     return NextResponse.json(
       { error: "Gagal mengambil kalender liturgi" },

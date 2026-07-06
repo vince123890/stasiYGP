@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
+import { jakartaDateString } from "@/lib/format";
 import type {
   Announcement,
   AnnouncementImage,
@@ -163,7 +164,7 @@ export async function getAnnouncementBySlug(
 
 export async function getTodayLiturgicalDay(): Promise<LiturgicalDay | null> {
   const supabase = createClient();
-  const today = new Date().toISOString().slice(0, 10);
+  const today = jakartaDateString();
   const { data, error } = await supabase
     .from("liturgical_calendar")
     .select("*")
