@@ -1,26 +1,61 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #fdfcf9;
+  --foreground: #1c2621;
+
+  --color-parish-50: #f2f8f4;
+  --color-parish-100: #dcece1;
+  --color-parish-200: #b9d9c5;
+  --color-parish-300: #8ec0a2;
+  --color-parish-400: #5fa17e;
+  --color-parish-500: #3d8362;
+  --color-parish-600: #2c6a4e;
+  --color-parish-700: #245640;
+  --color-parish-800: #1e4534;
+  --color-parish-900: #19392b;
+
+  --color-gold-400: #d4af6a;
+  --color-gold-500: #c19a4b;
+  --color-gold-600: #a37f39;
+
+  --color-cream-50: #fdfcf9;
+  --color-cream-100: #f8f5ee;
+  --color-cream-200: #f0ead9;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --font-sans: var(--font-plus-jakarta);
+  --font-display: var(--font-fraunces);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-parish-50: var(--color-parish-50);
+  --color-parish-100: var(--color-parish-100);
+  --color-parish-200: var(--color-parish-200);
+  --color-parish-300: var(--color-parish-300);
+  --color-parish-400: var(--color-parish-400);
+  --color-parish-500: var(--color-parish-500);
+  --color-parish-600: var(--color-parish-600);
+  --color-parish-700: var(--color-parish-700);
+  --color-parish-800: var(--color-parish-800);
+  --color-parish-900: var(--color-parish-900);
+
+  --color-gold-400: var(--color-gold-400);
+  --color-gold-500: var(--color-gold-500);
+  --color-gold-600: var(--color-gold-600);
+
+  --color-cream-50: var(--color-cream-50);
+  --color-cream-100: var(--color-cream-100);
+  --color-cream-200: var(--color-cream-200);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+.font-display {
+  font-family: var(--font-display), Georgia, serif;
 }
