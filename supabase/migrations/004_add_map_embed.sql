@@ -4,5 +4,5 @@
 alter table parish_profile add column if not exists map_embed_url text;
 
 update parish_profile
-set map_embed_url = 'https://www.google.com/maps?q=-7.2702331,112.8091774&z=17&output=embed'
+set map_embed_url = 'https://www.google.com/maps?q=-7.2706193,112.8114235&z=17&output=embed'
 where id = 1 and map_embed_url is null;

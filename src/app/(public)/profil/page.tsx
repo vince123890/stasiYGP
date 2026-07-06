@@ -102,7 +102,7 @@ export default async function ProfilPage() {
             <div className="space-y-3 pt-2">
               <ParishMap src={profile.map_embed_url} title={`Lokasi ${profile.stasi_name}`} />
               <a
-                href="https://www.google.com/maps?q=-7.2702331,112.8091774"
+                href="https://www.google.com/maps?q=-7.2706193,112.8114235"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 text-sm font-medium text-parish-600 hover:text-parish-700"
