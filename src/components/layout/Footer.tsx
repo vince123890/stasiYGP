@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
 import { Container } from "@/components/ui/Container";
+import { DEFAULT_MAP_EMBED_URL } from "@/components/ParishMap";
 import { getParishProfile } from "@/lib/queries";
 
 export async function Footer() {
@@ -93,22 +94,20 @@ export async function Footer() {
             </p>
           )}
 
-          {profile?.map_embed_url && (
-            <div className="mt-5">
-              <h3 className="mb-3 text-sm font-semibold uppercase tracking-wide text-gold-400">
-                Lokasi
-              </h3>
-              <div className="overflow-hidden rounded-xl border border-white/10">
-                <iframe
-                  src={profile.map_embed_url}
-                  title="Peta Lokasi Paroki"
-                  className="h-40 w-full border-0"
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                />
-              </div>
+          <div className="mt-5">
+            <h3 className="mb-3 text-sm font-semibold uppercase tracking-wide text-gold-400">
+              Lokasi
+            </h3>
+            <div className="overflow-hidden rounded-xl border border-white/10">
+              <iframe
+                src={profile?.map_embed_url || DEFAULT_MAP_EMBED_URL}
+                title="Peta Lokasi Paroki"
+                className="h-40 w-full border-0"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
             </div>
-          )}
+          </div>
         </div>
       </Container>
 
