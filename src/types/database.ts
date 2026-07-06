@@ -101,6 +101,7 @@ export interface LiturgicalDay {
   psalm: string | null;
   second_reading: string | null;
   gospel: string | null;
+  office_reading: string | null;
 }
 
 export interface SacramentForm {

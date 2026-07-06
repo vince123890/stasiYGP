@@ -46,6 +46,7 @@ export default async function EditLiturgicalDayPage({
             { type: "text", name: "psalm", label: "Mazmur" },
             { type: "text", name: "second_reading", label: "Bacaan II" },
             { type: "text", name: "gospel", label: "Injil" },
+            { type: "text", name: "office_reading", label: "Bacaan Ofisi (BcO)" },
           ]}
         />
       </div>

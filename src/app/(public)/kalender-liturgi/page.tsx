@@ -32,26 +32,62 @@ export default async function KalenderLiturgiPage() {
       />
 
       {todayDay && (
-        <Card className={`mt-10 p-6 sm:p-8 ${LITURGICAL_COLOR_STYLES[todayDay.liturgical_color].bg}`}>
-          <p className="text-xs font-semibold uppercase tracking-wide text-parish-700/70">
-            Hari Ini — {formatDate(todayDay.calendar_date)}
-          </p>
-          <h2 className="mt-2 font-display text-2xl text-parish-900 sm:text-3xl">
-            {todayDay.celebration_name}
-          </h2>
-          <div className="mt-3 flex items-center gap-2">
-            <span
-              className={`h-3 w-3 rounded-full ${LITURGICAL_COLOR_STYLES[todayDay.liturgical_color].dot}`}
-            />
-            <span
-              className={`text-sm font-medium ${LITURGICAL_COLOR_STYLES[todayDay.liturgical_color].text}`}
+        <Card
+          className={`mt-10 overflow-hidden ${LITURGICAL_COLOR_STYLES[todayDay.liturgical_color].solid}`}
+        >
+          <div className="p-6 sm:p-8">
+            <p
+              className={`text-xs font-semibold uppercase tracking-wide ${LITURGICAL_COLOR_STYLES[todayDay.liturgical_color].solidText} opacity-80`}
+            >
+              Hari Ini — {formatDate(todayDay.calendar_date)}
+            </p>
+            <h2
+              className={`mt-2 font-display text-2xl sm:text-3xl ${LITURGICAL_COLOR_STYLES[todayDay.liturgical_color].solidText}`}
+            >
+              {todayDay.celebration_name}
+            </h2>
+            <p
+              className={`mt-2 text-sm font-medium ${LITURGICAL_COLOR_STYLES[todayDay.liturgical_color].solidText} opacity-90`}
             >
               Warna Liturgi: {LITURGICAL_COLOR_STYLES[todayDay.liturgical_color].label}
-            </span>
+              {todayDay.rank && ` · ${todayDay.rank}`}
+            </p>
+
+            {Object.values(todayDay.readings).some(Boolean) && (
+              <div
+                className={`mt-5 space-y-1.5 border-t border-white/20 pt-5 text-sm ${LITURGICAL_COLOR_STYLES[todayDay.liturgical_color].solidText} opacity-90`}
+              >
+                {todayDay.readings.first_reading && (
+                  <p>
+                    <span className="font-semibold">Bacaan I:</span>{" "}
+                    {todayDay.readings.first_reading}
+                  </p>
+                )}
+                {todayDay.readings.psalm && (
+                  <p>
+                    <span className="font-semibold">Mazmur:</span> {todayDay.readings.psalm}
+                  </p>
+                )}
+                {todayDay.readings.second_reading && (
+                  <p>
+                    <span className="font-semibold">Bacaan II:</span>{" "}
+                    {todayDay.readings.second_reading}
+                  </p>
+                )}
+                {todayDay.readings.gospel && (
+                  <p>
+                    <span className="font-semibold">Injil:</span> {todayDay.readings.gospel}
+                  </p>
+                )}
+                {todayDay.readings.office_reading && (
+                  <p>
+                    <span className="font-semibold">Bacaan Ofisi (BcO):</span>{" "}
+                    {todayDay.readings.office_reading}
+                  </p>
+                )}
+              </div>
+            )}
           </div>
-          {todayDay.rank && (
-            <p className="mt-2 text-sm text-parish-700/70">{todayDay.rank}</p>
-          )}
         </Card>
       )}
 
@@ -65,7 +101,7 @@ export default async function KalenderLiturgiPage() {
               const color = LITURGICAL_COLOR_STYLES[day.liturgical_color];
               return (
                 <div key={day.calendar_date} className="flex items-start gap-4 p-5">
-                  <span className={`mt-1.5 h-3 w-3 shrink-0 rounded-full ${color.dot}`} />
+                  <span className={`mt-1 h-8 w-2 shrink-0 rounded-full ${color.solid}`} />
                   <div className="min-w-0 flex-1">
                     <p className="text-xs font-medium uppercase tracking-wide text-parish-500">
                       {formatDate(day.calendar_date)}

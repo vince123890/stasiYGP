@@ -123,7 +123,8 @@ create table liturgical_calendar (
   first_reading text,
   psalm text,
   second_reading text,
-  gospel text
+  gospel text,
+  office_reading text
 );
 
 create table sacrament_forms (

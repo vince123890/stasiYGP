@@ -8,31 +8,47 @@ import type { EffectiveLiturgicalDay } from "@/lib/liturgical-effective";
 export function LiturgicalTodayCard({ day }: { day: EffectiveLiturgicalDay | null }) {
   if (!day) return null;
   const color = LITURGICAL_COLOR_STYLES[day.liturgical_color];
+  const hasReadings = Object.values(day.readings).some(Boolean);
 
   return (
     <Link href="/kalender-liturgi" className="group block">
-      <Card className={`p-6 ${color.bg}`}>
-        <div className="flex items-center justify-between gap-2">
-          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-parish-700/70">
-            <CalendarHeart size={16} />
-            Kalender Liturgi Hari Ini
+      <Card className={`overflow-hidden ${color.solid}`}>
+        <div className="p-6">
+          <div className="flex items-center justify-between gap-2">
+            <div
+              className={`flex items-center gap-2 text-xs font-semibold uppercase tracking-wide ${color.solidText} opacity-80`}
+            >
+              <CalendarHeart size={16} />
+              Kalender Liturgi Hari Ini
+            </div>
+            <ChevronRight
+              size={16}
+              className={`${color.solidText} opacity-80 transition-transform group-hover:translate-x-0.5`}
+            />
           </div>
-          <ChevronRight
-            size={16}
-            className="text-parish-500 transition-transform group-hover:translate-x-0.5"
-          />
-        </div>
-        <p className="mt-2 text-sm text-parish-700/70">{formatDate(day.calendar_date)}</p>
-        <h3 className="mt-1 font-display text-xl text-parish-900">{day.celebration_name}</h3>
-        <div className="mt-3 flex items-center gap-2">
-          <span className={`h-3 w-3 rounded-full ${color.dot}`} />
-          <span className={`text-sm font-medium ${color.text}`}>
+          <p className={`mt-2 text-sm ${color.solidText} opacity-80`}>
+            {formatDate(day.calendar_date)}
+          </p>
+          <h3 className={`mt-1 font-display text-xl ${color.solidText}`}>
+            {day.celebration_name}
+          </h3>
+          <p className={`mt-2 text-sm font-medium ${color.solidText} opacity-90`}>
             Warna Liturgi: {color.label}
-          </span>
+          </p>
+
+          {hasReadings && (
+            <div className={`mt-4 space-y-1 border-t pt-4 text-sm ${color.solidText} opacity-90 border-white/20`}>
+              {day.readings.first_reading && <p>Bacaan I: {day.readings.first_reading}</p>}
+              {day.readings.psalm && <p>Mazmur: {day.readings.psalm}</p>}
+              {day.readings.second_reading && <p>Bacaan II: {day.readings.second_reading}</p>}
+              {day.readings.gospel && <p>Injil: {day.readings.gospel}</p>}
+            </div>
+          )}
+
+          <p className={`mt-3 text-xs ${color.solidText} opacity-70`}>
+            Klik untuk kalender lengkap
+          </p>
         </div>
-        <p className="mt-3 text-xs text-parish-700/60">
-          Klik untuk bacaan harian &amp; kalender lengkap
-        </p>
       </Card>
     </Link>
   );

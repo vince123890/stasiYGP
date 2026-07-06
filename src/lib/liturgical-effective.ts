@@ -3,14 +3,30 @@ import { getRomcalDay, getRomcalRange } from "@/lib/romcal-id";
 import { jakartaDateString } from "@/lib/format";
 import type { LiturgicalColor, LiturgicalDay } from "@/types/database";
 
+export interface EffectiveReadings {
+  first_reading: string | null;
+  psalm: string | null;
+  second_reading: string | null;
+  gospel: string | null;
+  office_reading: string | null;
+}
+
 export interface EffectiveLiturgicalDay {
   calendar_date: string;
   celebration_name: string;
   liturgical_color: LiturgicalColor;
   rank: string | null;
-  readings: string[];
+  readings: EffectiveReadings;
   source: "cms" | "romcal";
 }
+
+const EMPTY_READINGS: EffectiveReadings = {
+  first_reading: null,
+  psalm: null,
+  second_reading: null,
+  gospel: null,
+  office_reading: null,
+};
 
 function fromCms(day: LiturgicalDay): EffectiveLiturgicalDay {
   return {
@@ -18,9 +34,13 @@ function fromCms(day: LiturgicalDay): EffectiveLiturgicalDay {
     celebration_name: day.celebration_name,
     liturgical_color: day.liturgical_color,
     rank: day.rank,
-    readings: [day.first_reading, day.psalm, day.second_reading, day.gospel].filter(
-      (r): r is string => Boolean(r)
-    ),
+    readings: {
+      first_reading: day.first_reading,
+      psalm: day.psalm,
+      second_reading: day.second_reading,
+      gospel: day.gospel,
+      office_reading: day.office_reading,
+    },
     source: "cms",
   };
 }
@@ -38,7 +58,7 @@ export async function getEffectiveToday(): Promise<EffectiveLiturgicalDay | null
     celebration_name: computed.celebration_name,
     liturgical_color: computed.liturgical_color,
     rank: computed.rank,
-    readings: [],
+    readings: EMPTY_READINGS,
     source: "romcal",
   };
 }
@@ -60,7 +80,7 @@ export async function getEffectiveRange(
       celebration_name: day.celebration_name,
       liturgical_color: day.liturgical_color,
       rank: day.rank,
-      readings: [],
+      readings: EMPTY_READINGS,
       source: "romcal",
     });
   }

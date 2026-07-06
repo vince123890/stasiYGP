@@ -27,12 +27,10 @@ export default async function HomePage() {
     <div className="pb-24">
       <HeroSlider slides={slides} />
 
-      <Container className="mt-14 space-y-20">
+      <Container className="mt-10 space-y-20">
         {liturgicalDay && (
-          <div className="-mt-24 sm:-mt-28">
-            <div className="mx-auto max-w-md">
-              <LiturgicalTodayCard day={liturgicalDay} />
-            </div>
+          <div className="mx-auto max-w-md">
+            <LiturgicalTodayCard day={liturgicalDay} />
           </div>
         )}
 
