@@ -36,7 +36,7 @@ export default async function AdminProfilPage({
           action={action}
           values={profile ?? undefined}
           fields={[
-            { type: "text", name: "stasi_name", label: "Nama Stasi", required: true },
+            { type: "text", name: "stasi_name", label: "Nama Paroki", required: true },
             { type: "text", name: "paroki_name", label: "Nama Paroki Induk" },
             { type: "textarea", name: "address", label: "Alamat" },
             { type: "text", name: "phone1", label: "Telepon 1" },

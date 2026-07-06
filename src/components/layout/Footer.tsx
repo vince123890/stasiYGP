@@ -15,7 +15,7 @@ export async function Footer() {
             <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 p-1">
               <Image src="/logo.png" alt="" width={28} height={28} className="h-full w-full object-contain" />
             </span>
-            {profile?.stasi_name ?? "Paroki Yohanes Gabriel Perboyre"}
+            Paroki YGP
           </div>
           <p className="mt-4 text-sm leading-relaxed text-parish-100/70">
             Bersatu dalam iman, tumbuh dalam kasih, dan berbagi sukacita Injil
@@ -92,12 +92,29 @@ export async function Footer() {
               {profile.office_hours}
             </p>
           )}
+
+          {profile?.map_embed_url && (
+            <div className="mt-5">
+              <h3 className="mb-3 text-sm font-semibold uppercase tracking-wide text-gold-400">
+                Lokasi
+              </h3>
+              <div className="overflow-hidden rounded-xl border border-white/10">
+                <iframe
+                  src={profile.map_embed_url}
+                  title="Peta Lokasi Paroki"
+                  className="h-40 w-full border-0"
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
+              </div>
+            </div>
+          )}
         </div>
       </Container>
 
       <div className="border-t border-white/10 py-6">
         <Container className="text-center text-xs text-parish-100/60">
-          © {new Date().getFullYear()} {profile?.stasi_name ?? "Paroki Yohanes Gabriel Perboyre"}. Seluruh hak cipta dilindungi.
+          © {new Date().getFullYear()} Paroki Yohanes Gabriel Perboyre. Seluruh hak cipta dilindungi.
         </Container>
       </div>
     </footer>

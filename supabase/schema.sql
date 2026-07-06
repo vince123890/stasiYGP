@@ -320,7 +320,7 @@ insert into parish_profile (
   about_saint, vision, mission
 ) values (
   1,
-  'Stasi Yohanes Gabriel Perboyre',
+  'Paroki Yohanes Gabriel Perboyre',
   'Paroki Marinus Yohanes Surabaya',
   'Auditorium Universitas Katolik Widya Mandala, Lt 2, Jl. Kalisari Selatan No.1 Kalisari, Pakuwon City, Kec. Mulyorejo, Surabaya, Jawa Timur 60112 (Kampus Pakuwon City, Universitas Katolik Widya Mandala Surabaya)',
   '0812-5902-2020',
