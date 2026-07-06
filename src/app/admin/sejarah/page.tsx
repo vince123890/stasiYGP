@@ -40,17 +40,10 @@ export default async function AdminSejarahPage({
 
       <div className="mt-3">
         <ReorderableList
-          items={rows}
+          items={rows.map((r) => ({ id: r.id, title: `${r.year} — ${r.category}` }))}
           editHrefBase="/admin/sejarah"
           onDelete={handleDelete}
           onReorder={handleReorder}
-          renderLabel={(r) => (
-            <div>
-              <p className="font-medium text-parish-900">
-                {r.year} — {r.category}
-              </p>
-            </div>
-          )}
         />
       </div>
     </Container>

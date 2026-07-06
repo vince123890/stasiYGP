@@ -6,15 +6,19 @@ import { GripVertical } from "lucide-react";
 import { Card } from "@/components/ui/Card";
 import { DeleteButton } from "@/components/ui/DeleteButton";
 
-export function ReorderableList<T extends { id: string }>({
+export interface ReorderableItem {
+  id: string;
+  title: string;
+  subtitle?: string | null;
+}
+
+export function ReorderableList({
   items,
-  renderLabel,
   editHrefBase,
   onDelete,
   onReorder,
 }: {
-  items: T[];
-  renderLabel: (item: T) => React.ReactNode;
+  items: ReorderableItem[];
   editHrefBase: string;
   onDelete: (id: string) => Promise<void>;
   onReorder: (orderedIds: string[]) => Promise<void>;
@@ -55,7 +59,10 @@ export function ReorderableList<T extends { id: string }>({
           <span className="cursor-grab text-parish-400">
             <GripVertical size={16} />
           </span>
-          <div className="flex-1">{renderLabel(item)}</div>
+          <div className="flex-1">
+            <p className="font-medium text-parish-900">{item.title}</p>
+            {item.subtitle && <p className="text-xs text-parish-700/60">{item.subtitle}</p>}
+          </div>
           <Link
             href={`${editHrefBase}/${item.id}/edit`}
             className="rounded-md px-2.5 py-1.5 text-sm font-medium text-parish-600 hover:bg-parish-50"
