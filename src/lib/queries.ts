@@ -1,11 +1,23 @@
 import { createClient } from "@/lib/supabase/server";
 import type {
+  Announcement,
+  AnnouncementImage,
   Article,
   ArticleImage,
+  CategoricalGroup,
+  Gallery,
   HeroSlide,
   LiturgicalDay,
+  MassIntentionsInfo,
   MassSchedule,
-  ParishEvent,
+  Neighborhood,
+  OrganizationMember,
+  ParishHistory,
+  ParishProfile,
+  Pastor,
+  SacramentForm,
+  SocialMinistry,
+  Territory,
 } from "@/types/database";
 
 export async function getHeroSlides(): Promise<HeroSlide[]> {
@@ -24,32 +36,7 @@ export async function getAllMassSchedules(): Promise<MassSchedule[]> {
   const { data, error } = await supabase
     .from("mass_schedules")
     .select("*")
-    .order("day_of_week", { ascending: true })
     .order("sort_order", { ascending: true });
-
-  if (error) throw error;
-  return data ?? [];
-}
-
-export async function getUpcomingMassSchedules(limit = 4): Promise<MassSchedule[]> {
-  const all = await getAllMassSchedules();
-  const today = new Date().getDay();
-  const sorted = [...all].sort((a, b) => {
-    const da = (a.day_of_week - today + 7) % 7;
-    const db = (b.day_of_week - today + 7) % 7;
-    return da - db || a.sort_order - b.sort_order;
-  });
-  return sorted.slice(0, limit);
-}
-
-export async function getUpcomingEvents(limit = 3): Promise<ParishEvent[]> {
-  const supabase = createClient();
-  const { data, error } = await supabase
-    .from("events")
-    .select("*")
-    .gte("event_date", new Date().toISOString())
-    .order("event_date", { ascending: true })
-    .limit(limit);
 
   if (error) throw error;
   return data ?? [];
@@ -60,19 +47,6 @@ export async function getLatestArticles(limit = 6): Promise<Article[]> {
   const { data, error } = await supabase
     .from("articles")
     .select("*, category:categories(*)")
-    .order("published_at", { ascending: false })
-    .limit(limit);
-
-  if (error) throw error;
-  return data ?? [];
-}
-
-export async function getLatestAnnouncements(limit = 4): Promise<Article[]> {
-  const supabase = createClient();
-  const { data, error } = await supabase
-    .from("articles")
-    .select("*, category:categories(*)")
-    .eq("is_announcement", true)
     .order("published_at", { ascending: false })
     .limit(limit);
 
@@ -141,6 +115,52 @@ export async function getCategories() {
   return data ?? [];
 }
 
+export async function getLatestAnnouncements(limit = 4): Promise<Announcement[]> {
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from("announcements")
+    .select("*")
+    .order("is_priority", { ascending: false })
+    .order("published_at", { ascending: false })
+    .limit(limit);
+
+  if (error) throw error;
+  return data ?? [];
+}
+
+export async function getAnnouncements(): Promise<Announcement[]> {
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from("announcements")
+    .select("*")
+    .order("is_priority", { ascending: false })
+    .order("published_at", { ascending: false });
+
+  if (error) throw error;
+  return data ?? [];
+}
+
+export async function getAnnouncementBySlug(
+  slug: string
+): Promise<{ announcement: Announcement; images: AnnouncementImage[] } | null> {
+  const supabase = createClient();
+  const { data: announcement, error } = await supabase
+    .from("announcements")
+    .select("*")
+    .eq("slug", slug)
+    .single();
+
+  if (error || !announcement) return null;
+
+  const { data: images } = await supabase
+    .from("announcement_images")
+    .select("*")
+    .eq("announcement_id", announcement.id)
+    .order("sort_order", { ascending: true });
+
+  return { announcement, images: images ?? [] };
+}
+
 export async function getTodayLiturgicalDay(): Promise<LiturgicalDay | null> {
   const supabase = createClient();
   const today = new Date().toISOString().slice(0, 10);
@@ -168,4 +188,162 @@ export async function getLiturgicalCalendarRange(
 
   if (error) throw error;
   return data ?? [];
+}
+
+export async function getOrganizationMembers(
+  groupName: "BGKS" | "DPS"
+): Promise<OrganizationMember[]> {
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from("organization_members")
+    .select("*")
+    .eq("group_name", groupName)
+    .order("sort_order", { ascending: true });
+
+  if (error) throw error;
+  const rows = (data ?? []) as OrganizationMember[];
+
+  const byId = new Map(rows.map((r) => [r.id, { ...r, children: [] as OrganizationMember[] }]));
+  const roots: OrganizationMember[] = [];
+
+  for (const row of byId.values()) {
+    if (row.parent_id && byId.has(row.parent_id)) {
+      byId.get(row.parent_id)!.children!.push(row);
+    } else {
+      roots.push(row);
+    }
+  }
+
+  return roots;
+}
+
+export async function getParishProfile(): Promise<ParishProfile | null> {
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from("parish_profile")
+    .select("*")
+    .eq("id", 1)
+    .maybeSingle();
+
+  if (error) throw error;
+  return data ?? null;
+}
+
+export async function getParishHistory(): Promise<ParishHistory[]> {
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from("parish_history")
+    .select("*")
+    .order("sort_order", { ascending: true });
+
+  if (error) throw error;
+  return data ?? [];
+}
+
+export async function getPastors(): Promise<Pastor[]> {
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from("pastors")
+    .select("*")
+    .order("sort_order", { ascending: true });
+
+  if (error) throw error;
+  return data ?? [];
+}
+
+export async function getCategoricalGroups(): Promise<CategoricalGroup[]> {
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from("categorical_groups")
+    .select("*")
+    .order("sort_order", { ascending: true });
+
+  if (error) throw error;
+  return data ?? [];
+}
+
+export async function getSocialMinistries(): Promise<SocialMinistry[]> {
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from("social_ministries")
+    .select("*")
+    .order("sort_order", { ascending: true });
+
+  if (error) throw error;
+  return data ?? [];
+}
+
+export async function getSacramentForms(): Promise<SacramentForm[]> {
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from("sacrament_forms")
+    .select("*")
+    .order("sort_order", { ascending: true });
+
+  if (error) throw error;
+  return data ?? [];
+}
+
+export async function getGalleries(): Promise<Gallery[]> {
+  const supabase = createClient();
+  const { data: galleries, error } = await supabase
+    .from("galleries")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  if (error) throw error;
+  if (!galleries || galleries.length === 0) return [];
+
+  const { data: images } = await supabase
+    .from("gallery_images")
+    .select("*")
+    .in(
+      "gallery_id",
+      galleries.map((g) => g.id)
+    )
+    .order("sort_order", { ascending: true });
+
+  return galleries.map((g) => ({
+    ...g,
+    images: (images ?? []).filter((img) => img.gallery_id === g.id),
+  }));
+}
+
+export async function getMassIntentionsInfo(): Promise<MassIntentionsInfo | null> {
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from("mass_intentions_info")
+    .select("*")
+    .eq("id", 1)
+    .maybeSingle();
+
+  if (error) throw error;
+  return data ?? null;
+}
+
+export async function getTerritories(): Promise<
+  (Territory & { neighborhoods: Neighborhood[] })[]
+> {
+  const supabase = createClient();
+  const { data: territories, error } = await supabase
+    .from("territories")
+    .select("*")
+    .order("name", { ascending: true });
+
+  if (error) throw error;
+  if (!territories || territories.length === 0) return [];
+
+  const { data: neighborhoods } = await supabase
+    .from("neighborhoods")
+    .select("*")
+    .in(
+      "territory_id",
+      territories.map((t) => t.id)
+    )
+    .order("name", { ascending: true });
+
+  return territories.map((t) => ({
+    ...t,
+    neighborhoods: (neighborhoods ?? []).filter((n) => n.territory_id === t.id),
+  }));
 }

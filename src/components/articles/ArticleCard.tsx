@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
-import { formatDate } from "@/lib/format";
+import { formatDate, stripHtmlExcerpt } from "@/lib/format";
 import type { Article } from "@/types/database";
 
 export function ArticleCard({ article }: { article: Article }) {
@@ -21,11 +21,6 @@ export function ArticleCard({ article }: { article: Article }) {
           ) : (
             <div className="h-full w-full bg-parish-100" />
           )}
-          {article.is_announcement && (
-            <span className="absolute left-3 top-3 rounded-full bg-gold-500 px-3 py-1 text-xs font-semibold text-white shadow">
-              Pengumuman
-            </span>
-          )}
         </div>
         <div className="p-5">
           {article.category && <Badge>{article.category.name}</Badge>}
@@ -33,7 +28,7 @@ export function ArticleCard({ article }: { article: Article }) {
             {article.title}
           </h3>
           <p className="mt-2 line-clamp-2 text-sm text-parish-700/75">
-            {article.excerpt}
+            {stripHtmlExcerpt(article.content)}
           </p>
           <p className="mt-4 text-xs font-medium uppercase tracking-wide text-parish-500">
             {formatDate(article.published_at)}

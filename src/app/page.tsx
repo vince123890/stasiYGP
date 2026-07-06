@@ -2,24 +2,24 @@ import { Container } from "@/components/ui/Container";
 import { HeroSlider } from "@/components/home/HeroSlider";
 import { MassScheduleSection } from "@/components/home/MassScheduleSection";
 import { LatestArticlesSection } from "@/components/home/LatestArticlesSection";
-import { EventSection } from "@/components/home/EventSection";
+import { AnnouncementSection } from "@/components/home/AnnouncementSection";
 import { LiturgicalTodayCard } from "@/components/home/LiturgicalTodayCard";
 import {
   getHeroSlides,
-  getUpcomingMassSchedules,
+  getAllMassSchedules,
   getLatestArticles,
-  getUpcomingEvents,
+  getLatestAnnouncements,
   getTodayLiturgicalDay,
 } from "@/lib/queries";
 
 export const revalidate = 300;
 
 export default async function HomePage() {
-  const [slides, schedules, articles, events, liturgicalDay] = await Promise.all([
+  const [slides, schedules, articles, announcements, liturgicalDay] = await Promise.all([
     getHeroSlides(),
-    getUpcomingMassSchedules(4),
+    getAllMassSchedules(),
     getLatestArticles(6),
-    getUpcomingEvents(3),
+    getLatestAnnouncements(3),
     getTodayLiturgicalDay(),
   ]);
 
@@ -37,8 +37,8 @@ export default async function HomePage() {
         )}
 
         <MassScheduleSection schedules={schedules} />
+        <AnnouncementSection announcements={announcements} />
         <LatestArticlesSection articles={articles} />
-        <EventSection events={events} />
       </Container>
     </div>
   );

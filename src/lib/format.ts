@@ -28,6 +28,11 @@ export function formatDateShort(iso: string): string {
   });
 }
 
+export function stripHtmlExcerpt(html: string, maxLength = 140): string {
+  const text = html.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+  return text.length > maxLength ? `${text.slice(0, maxLength).trimEnd()}…` : text;
+}
+
 export function formatDateTime(iso: string): string {
   return new Date(iso).toLocaleString("id-ID", {
     weekday: "long",

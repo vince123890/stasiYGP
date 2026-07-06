@@ -3,7 +3,6 @@ import { Container } from "@/components/ui/Container";
 import { Card } from "@/components/ui/Card";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { LiturgicalWeekList } from "@/components/liturgical/LiturgicalWeekList";
-import { dayName } from "@/lib/format";
 import { getAllMassSchedules, getLiturgicalCalendarRange } from "@/lib/queries";
 import type { Metadata } from "next";
 
@@ -13,14 +12,14 @@ export const metadata: Metadata = {
 
 export const revalidate = 300;
 
-function groupByDay(schedules: Awaited<ReturnType<typeof getAllMassSchedules>>) {
-  const groups = new Map<number, typeof schedules>();
+function groupByChapel(schedules: Awaited<ReturnType<typeof getAllMassSchedules>>) {
+  const groups = new Map<string, typeof schedules>();
   for (const s of schedules) {
-    const list = groups.get(s.day_of_week) ?? [];
+    const list = groups.get(s.chapel) ?? [];
     list.push(s);
-    groups.set(s.day_of_week, list);
+    groups.set(s.chapel, list);
   }
-  return [...groups.entries()].sort(([a], [b]) => a - b);
+  return [...groups.entries()];
 }
 
 export default async function JadwalMisaPage() {
@@ -35,7 +34,7 @@ export default async function JadwalMisaPage() {
     getLiturgicalCalendarRange(from, to),
   ]);
 
-  const grouped = groupByDay(schedules);
+  const grouped = groupByChapel(schedules);
 
   return (
     <Container className="py-16">
@@ -47,9 +46,12 @@ export default async function JadwalMisaPage() {
 
       <div className="mt-10 grid gap-10 lg:grid-cols-3">
         <div className="space-y-4 lg:col-span-2">
-          {grouped.map(([day, items]) => (
-            <Card key={day} className="p-5">
-              <h3 className="font-display text-lg text-parish-900">{dayName(day)}</h3>
+          {grouped.map(([chapel, items]) => (
+            <Card key={chapel} className="p-5">
+              <h3 className="flex items-center gap-1.5 font-display text-lg text-parish-900">
+                <MapPin size={18} className="text-parish-500" />
+                {chapel}
+              </h3>
               <div className="mt-3 divide-y divide-parish-100">
                 {items.map((s) => (
                   <div
@@ -61,13 +63,10 @@ export default async function JadwalMisaPage() {
                         <Clock size={16} className="text-parish-500" />
                         {s.time}
                       </span>
-                      <span className="text-sm text-parish-800">{s.label}</span>
+                      <span className="text-sm text-parish-800">{s.day_label}</span>
                     </div>
                     <div className="flex items-center gap-4">
-                      <span className="flex items-center gap-1.5 text-sm text-parish-700/70">
-                        <MapPin size={14} />
-                        {s.location}
-                      </span>
+                      <span className="text-sm text-parish-700/70">{s.category}</span>
                       {s.stream_url && (
                         <a
                           href={s.stream_url}

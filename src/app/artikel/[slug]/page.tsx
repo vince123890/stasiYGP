@@ -1,11 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Paperclip } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Badge } from "@/components/ui/Badge";
 import { Gallery } from "@/components/articles/Gallery";
-import { formatDate } from "@/lib/format";
+import { formatDate, stripHtmlExcerpt } from "@/lib/format";
 import { getArticleBySlug } from "@/lib/queries";
 import type { Metadata } from "next";
 
@@ -21,7 +21,7 @@ export async function generateMetadata({
   if (!result) return {};
   return {
     title: `${result.article.title} — Stasi Yohanes Gabriel Perboyre`,
-    description: result.article.excerpt,
+    description: stripHtmlExcerpt(result.article.content),
   };
 }
 
@@ -64,11 +64,6 @@ export default async function ArticleDetailPage({
 
           <div className="mt-5 flex flex-wrap items-center gap-3">
             {article.category && <Badge>{article.category.name}</Badge>}
-            {article.is_announcement && (
-              <span className="rounded-full bg-gold-500 px-3 py-1 text-xs font-semibold text-white">
-                Pengumuman
-              </span>
-            )}
           </div>
 
           <h1 className="mt-4 font-display text-3xl leading-tight text-parish-900 sm:text-4xl">
@@ -76,15 +71,31 @@ export default async function ArticleDetailPage({
           </h1>
           <p className="mt-3 text-sm font-medium uppercase tracking-wide text-parish-500">
             {formatDate(article.published_at)}
+            {article.author && ` · ${article.author}`}
           </p>
 
-          <div className="mt-8 whitespace-pre-line text-base leading-relaxed text-parish-800/90">
-            {article.content}
-          </div>
+          <div
+            className="prose prose-parish mt-8 max-w-none text-base leading-relaxed text-parish-800/90"
+            dangerouslySetInnerHTML={{ __html: article.content }}
+          />
 
           {images.length > 0 && (
             <div className="mt-10 border-t border-parish-100 pt-8">
               <Gallery images={images} />
+            </div>
+          )}
+
+          {article.attachment_url && (
+            <div className="mt-8 border-t border-parish-100 pt-8">
+              <a
+                href={article.attachment_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-sm font-medium text-parish-600 hover:text-parish-700"
+              >
+                <Paperclip size={16} />
+                Lihat lampiran di Google Drive
+              </a>
             </div>
           )}
         </div>
