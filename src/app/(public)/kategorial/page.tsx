@@ -5,7 +5,7 @@ import { getCategoricalGroups } from "@/lib/queries";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Kategorial — Stasi Yohanes Gabriel Perboyre",
+  title: "Kategorial — Paroki Yohanes Gabriel Perboyre",
 };
 
 export const revalidate = 300;
@@ -18,7 +18,7 @@ export default async function KategorialPage() {
       <SectionHeading
         eyebrow="Kelompok Umat"
         title="Kategorial"
-        description="Berbagai kelompok kategorial yang aktif melayani di Stasi Yohanes Gabriel Perboyre."
+        description="Berbagai kelompok kategorial yang aktif melayani di Paroki Yohanes Gabriel Perboyre."
       />
 
       <div className="mt-10 grid gap-6 sm:grid-cols-2">

@@ -35,8 +35,8 @@ export function OrganizationMemberForm({
       <Card className="space-y-4 p-6">
         <Field label="Kelompok" htmlFor="group_name">
           <Select id="group_name" name="group_name" defaultValue={member?.group_name ?? "DPS"}>
-            <option value="BGKS">BGKS</option>
-            <option value="DPS">DPS</option>
+            <option value="BGKS">BGKP</option>
+            <option value="DPS">DPP</option>
           </Select>
         </Field>
 
@@ -57,7 +57,7 @@ export function OrganizationMemberForm({
         <Field label="Atasan (opsional)" htmlFor="parent_id" hint="Kosongkan jika ini posisi tingkat atas">
           <Select id="parent_id" name="parent_id" defaultValue={member?.parent_id ?? ""}>
             <option value="">— Tidak ada (tingkat atas) —</option>
-            <optgroup label="BGKS">
+            <optgroup label="BGKP">
               {bgksFlat.map(({ member: m, depth }) => (
                 <option key={m.id} value={m.id}>
                   {"  ".repeat(depth)}
@@ -65,7 +65,7 @@ export function OrganizationMemberForm({
                 </option>
               ))}
             </optgroup>
-            <optgroup label="DPS">
+            <optgroup label="DPP">
               {dpsFlat.map(({ member: m, depth }) => (
                 <option key={m.id} value={m.id}>
                   {"  ".repeat(depth)}

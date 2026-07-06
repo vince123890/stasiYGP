@@ -68,7 +68,7 @@ create table announcements (
   id uuid primary key default gen_random_uuid(),
   title text not null,
   slug text not null unique,
-  category text not null check (category in ('Pernikahan', 'Tahbisan Imam', 'Tahbisan Diakon', 'Pengumuman Paroki', 'Pengumuman Stasi')),
+  category text not null check (category in ('Pernikahan', 'Tahbisan Imam', 'Tahbisan Diakon', 'Pengumuman Paroki')),
   content text not null,
   attachment_url text, -- optional Google Drive link
   is_priority boolean not null default false,
@@ -200,7 +200,7 @@ create table neighborhoods (
 create table pastors (
   id uuid primary key default gen_random_uuid(),
   pastor_type text not null check (pastor_type in ('Gembala Kami', 'Pernah Berkarya')),
-  priest_type text not null check (priest_type in ('Romo Paroki/Stasi', 'Romo Rekan')),
+  priest_type text not null check (priest_type in ('Romo Paroki', 'Romo Rekan')),
   name text not null,
   nickname text,
   ordination_date date,
@@ -224,6 +224,7 @@ create table parish_profile (
   instagram_url text,
   youtube_url text,
   facebook_url text,
+  map_embed_url text,
   about_saint text,
   vision text,
   mission text
@@ -315,7 +316,7 @@ insert into mass_schedules (chapel, category, day_label, time, sort_order) value
 -- Parish profile (real address/contact from Sekretariat.xlsx; vision/mission adapted from dump `profiles`)
 insert into parish_profile (
   id, stasi_name, paroki_name, address, phone1, email, office_hours,
-  whatsapp_url, instagram_url, youtube_url,
+  whatsapp_url, instagram_url, youtube_url, map_embed_url,
   about_saint, vision, mission
 ) values (
   1,
@@ -328,6 +329,7 @@ insert into parish_profile (
   'https://chat.whatsapp.com/BCxQTo2NX5WAh658bShO25',
   'https://www.instagram.com/yohanesgabrielperboyre',
   'https://www.youtube.com/@KomsosYGP',
+  'https://www.google.com/maps?q=-7.2702331,112.8091774&z=17&output=embed',
   '<p><strong>Santo Yohanes Gabriel Perboyre</strong> (1802-1840) adalah seorang imam Lazaris asal Prancis yang menjadi martir iman di Tiongkok.</p><h2>Kehidupan Awal</h2><p>Lahir pada 6 Januari 1802 di Le Puech, Prancis, dari keluarga yang taat beragama. Sejak kecil ia sudah menunjukkan kecintaan yang mendalam pada Tuhan dan pelayanan gereja.</p><h2>Panggilan Misionaris</h2><p>Setelah ditahbiskan menjadi imam pada tahun 1826, ia mengajar di seminari selama beberapa tahun. Namun hatinya terus terpanggil untuk menjadi misionaris. Pada 1835, ia berangkat ke Tiongkok untuk mewartakan Injil.</p><h2>Kemartiran</h2><p>Di Tiongkok, ia melayani umat dengan penuh kasih meskipun menghadapi banyak kesulitan dan penganiayaan. Pada 1839, ia ditangkap karena imannya. Setelah disiksa dengan keji, ia akhirnya dimartir dengan cara dicekik pada 11 September 1840 di Wuchang, Hubei.</p><h2>Kanonisasi</h2><p>Yohanes Gabriel Perboyre dibeatifikasi oleh Paus Leo XIII pada tahun 1889 dan dikanonisasi oleh Paus Yohanes Paulus II pada 2 Juni 1996. Ia adalah santo martir Tiongkok pertama yang dikanonisasi. Pesta liturginya dirayakan pada tanggal 11 September.</p>',
   '<p><strong>Menjadi komunitas beriman yang hidup, penuh kasih, dan bersaksi tentang Kristus di tengah masyarakat.</strong></p><p>Kami bercita-cita untuk:</p><ul><li>Membangun persekutuan umat yang kuat dan saling mendukung</li><li>Menghidupi iman Katolik dengan autentik dan penuh sukacita</li><li>Menjadi terang dan garam bagi lingkungan sekitar</li><li>Meneladani semangat misionaris Santo Yohanes Gabriel Perboyre dalam pewartaan Injil</li></ul>',
   '<p>Untuk mewujudkan visi tersebut, kami mengemban misi:</p><ul><li><strong>Pembinaan Iman</strong> — Menyelenggarakan kegiatan katekese, pendalaman Kitab Suci, dan pembinaan rohani bagi seluruh umat</li><li><strong>Liturgi yang Hidup</strong> — Merayakan Ekaristi dan sakramen-sakramen dengan khidmat dan penuh kehadiran</li><li><strong>Pelayanan Kasih</strong> — Melayani sesama, terutama yang miskin dan menderita, melalui berbagai karya sosial</li><li><strong>Kekeluargaan</strong> — Membangun relasi yang erat antar umat melalui kegiatan lingkungan dan kategorial</li><li><strong>Pewartaan</strong> — Mewartakan Kabar Gembira melalui kesaksian hidup dan berbagai kegiatan evangelisasi</li></ul>'
@@ -344,9 +346,9 @@ insert into parish_history (year, category, content, sort_order) values
 
 -- Pastors (from `pastors`)
 insert into pastors (pastor_type, priest_type, name, nickname, ordination_date, serve_from, serve_to, biography, sort_order) values
-  ('Gembala Kami', 'Romo Paroki/Stasi', 'RD. Yohanes Dwi Harsanto, Pr.', 'Romo Yohanes', '2015-08-15', 2022, null, 'Ditahbiskan sebagai imam pada 15 Agustus 2015. Mulai berkarya di stasi sejak tahun 2022. Sebelumnya bertugas di beberapa paroki di Keuskupan.', 0),
+  ('Gembala Kami', 'Romo Paroki', 'RD. Yohanes Dwi Harsanto, Pr.', 'Romo Yohanes', '2015-08-15', 2022, null, 'Ditahbiskan sebagai imam pada 15 Agustus 2015. Mulai berkarya di stasi sejak tahun 2022. Sebelumnya bertugas di beberapa paroki di Keuskupan.', 0),
   ('Gembala Kami', 'Romo Rekan', 'RD. Antonius Budi Santosa, CM', 'Romo Anton', '2018-06-10', 2023, null, 'Anggota Kongregasi Misi (CM) atau Vincentian. Bergabung membantu pelayanan di stasi sejak tahun 2023, khususnya dalam pembinaan kaum muda dan kategorial.', 1),
-  ('Pernah Berkarya', 'Romo Paroki/Stasi', 'RD. Petrus Sugiarto, Pr.', 'Romo Petrus', '2005-07-20', 2018, 2022, 'Berkarya di stasi periode 2018-2022. Dikenal sebagai pastor yang sangat peduli dengan karya sosial dan pemberdayaan umat.', 2),
+  ('Pernah Berkarya', 'Romo Paroki', 'RD. Petrus Sugiarto, Pr.', 'Romo Petrus', '2005-07-20', 2018, 2022, 'Berkarya di stasi periode 2018-2022. Dikenal sebagai pastor yang sangat peduli dengan karya sosial dan pemberdayaan umat.', 2),
   ('Pernah Berkarya', 'Romo Rekan', 'RD. Andreas Suryanto, CM', 'Romo Andreas', '2010-05-30', 2019, 2023, 'Membantu pelayanan di stasi periode 2019-2023. Fokus pada pembinaan liturgi dan pelayanan sakramen.', 3);
 
 -- Categorical groups (from `kategoriales`)
@@ -417,8 +419,8 @@ insert into sacrament_forms (name, category, description, file_url, sort_order) 
 
 -- Announcements (from `pengumumans`)
 insert into announcements (title, slug, category, content, is_priority, published_at) values
-  ('Pengumuman: Jadwal Misa Minggu Paskah', 'jadwal-misa-minggu-paskah', 'Pengumuman Stasi', '<p>Kepada seluruh umat, berikut jadwal Misa pada Minggu Paskah:</p><ul><li>Sabtu Vigili Paskah: 19.00 WIB</li><li>Minggu Misa Paskah: 06.00 WIB &amp; 08.00 WIB</li></ul><p>Umat diharapkan hadir 15 menit sebelum misa dimulai. Selamat Paskah, Kristus telah bangkit, Alleluia!</p>', false, current_date - 30),
-  ('Pengumuman: Pendaftaran Katekumen Dewasa', 'pendaftaran-katekumen-dewasa', 'Pengumuman Stasi', '<p>Stasi membuka pendaftaran Katekumen Dewasa. Waktu &amp; tempat: setiap hari Sabtu, 16.00-18.00 WIB di Ruang Katekese.</p><p>Informasi &amp; pendaftaran hubungi sekretariat stasi.</p>', true, current_date - 5),
+  ('Pengumuman: Jadwal Misa Minggu Paskah', 'jadwal-misa-minggu-paskah', 'Pengumuman Paroki', '<p>Kepada seluruh umat, berikut jadwal Misa pada Minggu Paskah:</p><ul><li>Sabtu Vigili Paskah: 19.00 WIB</li><li>Minggu Misa Paskah: 06.00 WIB &amp; 08.00 WIB</li></ul><p>Umat diharapkan hadir 15 menit sebelum misa dimulai. Selamat Paskah, Kristus telah bangkit, Alleluia!</p>', false, current_date - 30),
+  ('Pengumuman: Pendaftaran Katekumen Dewasa', 'pendaftaran-katekumen-dewasa', 'Pengumuman Paroki', '<p>Stasi membuka pendaftaran Katekumen Dewasa. Waktu &amp; tempat: setiap hari Sabtu, 16.00-18.00 WIB di Ruang Katekese.</p><p>Informasi &amp; pendaftaran hubungi sekretariat stasi.</p>', true, current_date - 5),
   ('Pengumuman Paroki: Penutupan Sementara Sekretariat', 'penutupan-sementara-sekretariat', 'Pengumuman Paroki', '<p>Sekretariat akan ditutup sementara dalam rangka pemeliharaan sistem administrasi. Untuk keperluan mendesak, dapat menghubungi kontak sekretariat.</p>', false, current_date - 12);
 
 -- Articles (from `artikels`, published only)

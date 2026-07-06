@@ -6,7 +6,7 @@ import type { Metadata } from "next";
 import type { Pastor } from "@/types/database";
 
 export const metadata: Metadata = {
-  title: "Para Pastor — Stasi Yohanes Gabriel Perboyre",
+  title: "Para Pastor — Paroki Yohanes Gabriel Perboyre",
 };
 
 export const revalidate = 300;
@@ -37,7 +37,7 @@ export default async function PastorPage() {
       <SectionHeading
         eyebrow="Gembala Umat"
         title="Para Pastor"
-        description="Para romo yang melayani dan pernah berkarya di Stasi Yohanes Gabriel Perboyre."
+        description="Para romo yang melayani dan pernah berkarya di Paroki Yohanes Gabriel Perboyre."
       />
 
       <div className="mt-10 space-y-12">

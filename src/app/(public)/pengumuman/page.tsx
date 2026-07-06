@@ -9,7 +9,7 @@ import { getAnnouncements } from "@/lib/queries";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Pengumuman — Stasi Yohanes Gabriel Perboyre",
+  title: "Pengumuman — Paroki Yohanes Gabriel Perboyre",
 };
 
 export const revalidate = 300;
@@ -20,9 +20,9 @@ export default async function PengumumanPage() {
   return (
     <Container className="py-16">
       <SectionHeading
-        eyebrow="Info Stasi"
+        eyebrow="Info Paroki"
         title="Pengumuman"
-        description="Pernikahan, tahbisan, dan pengumuman penting seputar kehidupan stasi."
+        description="Pernikahan, tahbisan, dan pengumuman penting seputar kehidupan paroki."
       />
 
       <div className="mt-10 grid gap-4">

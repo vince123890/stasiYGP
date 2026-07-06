@@ -37,13 +37,13 @@ export default async function AdminOrganisasiPage({
 
       <div className="mt-6 grid gap-6 lg:grid-cols-2">
         <Card className="p-5">
-          <h2 className="font-display text-lg text-parish-900">BGKS</h2>
+          <h2 className="font-display text-lg text-parish-900">BGKP</h2>
           <div className="mt-3">
             <OrganizationTreeAdmin members={bgks} onDelete={handleDelete} />
           </div>
         </Card>
         <Card className="p-5">
-          <h2 className="font-display text-lg text-parish-900">DPS</h2>
+          <h2 className="font-display text-lg text-parish-900">DPP</h2>
           <div className="mt-3">
             <OrganizationTreeAdmin members={dps} onDelete={handleDelete} />
           </div>

@@ -15,7 +15,7 @@ export async function Footer() {
             <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 p-1">
               <Image src="/logo.png" alt="" width={28} height={28} className="h-full w-full object-contain" />
             </span>
-            {profile?.stasi_name ?? "Stasi Yohanes Gabriel Perboyre"}
+            {profile?.stasi_name ?? "Paroki Yohanes Gabriel Perboyre"}
           </div>
           <p className="mt-4 text-sm leading-relaxed text-parish-100/70">
             Bersatu dalam iman, tumbuh dalam kasih, dan berbagi sukacita Injil
@@ -97,7 +97,7 @@ export async function Footer() {
 
       <div className="border-t border-white/10 py-6">
         <Container className="text-center text-xs text-parish-100/60">
-          © {new Date().getFullYear()} {profile?.stasi_name ?? "Stasi Yohanes Gabriel Perboyre"}. Seluruh hak cipta dilindungi.
+          © {new Date().getFullYear()} {profile?.stasi_name ?? "Paroki Yohanes Gabriel Perboyre"}. Seluruh hak cipta dilindungi.
         </Container>
       </div>
     </footer>

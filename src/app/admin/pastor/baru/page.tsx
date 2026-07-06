@@ -35,7 +35,7 @@ export default async function NewPastorPage() {
               name: "priest_type",
               label: "Tipe",
               options: [
-                { value: "Romo Paroki/Stasi", label: "Romo Paroki/Stasi" },
+                { value: "Romo Paroki", label: "Romo Paroki" },
                 { value: "Romo Rekan", label: "Romo Rekan" },
               ],
             },

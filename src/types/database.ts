@@ -4,11 +4,10 @@ export type AnnouncementCategory =
   | "Pernikahan"
   | "Tahbisan Imam"
   | "Tahbisan Diakon"
-  | "Pengumuman Paroki"
-  | "Pengumuman Stasi";
+  | "Pengumuman Paroki";
 export type OrganizationGroup = "BGKS" | "DPS";
 export type PastorType = "Gembala Kami" | "Pernah Berkarya";
-export type PriestType = "Romo Paroki/Stasi" | "Romo Rekan";
+export type PriestType = "Romo Paroki" | "Romo Rekan";
 
 export interface Category {
   id: string;
@@ -202,6 +201,7 @@ export interface ParishProfile {
   instagram_url: string | null;
   youtube_url: string | null;
   facebook_url: string | null;
+  map_embed_url: string | null;
   about_saint: string | null;
   vision: string | null;
   mission: string | null;

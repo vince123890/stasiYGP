@@ -47,6 +47,12 @@ export default async function AdminProfilPage({
             { type: "text", name: "instagram_url", label: "Link Instagram" },
             { type: "text", name: "youtube_url", label: "Link YouTube" },
             { type: "text", name: "facebook_url", label: "Link Facebook" },
+            {
+              type: "text",
+              name: "map_embed_url",
+              label: "Link Embed Google Maps",
+              placeholder: "https://www.google.com/maps?q=LAT,LNG&z=17&output=embed",
+            },
             { type: "richtext", name: "about_saint", label: "Tentang Santo Pelindung" },
             { type: "richtext", name: "vision", label: "Visi" },
             { type: "richtext", name: "mission", label: "Misi" },

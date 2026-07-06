@@ -6,7 +6,7 @@ import { getTerritories } from "@/lib/queries";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Wilayah & Lingkungan — Stasi Yohanes Gabriel Perboyre",
+  title: "Wilayah & Lingkungan — Paroki Yohanes Gabriel Perboyre",
 };
 
 export const revalidate = 300;
@@ -19,7 +19,7 @@ export default async function WilayahPage() {
       <SectionHeading
         eyebrow="Struktur Teritorial"
         title="Wilayah & Lingkungan"
-        description="Pembagian wilayah dan lingkungan umat Stasi Yohanes Gabriel Perboyre."
+        description="Pembagian wilayah dan lingkungan umat Paroki Yohanes Gabriel Perboyre."
       />
 
       <div className="mt-10 grid gap-6 lg:grid-cols-2">

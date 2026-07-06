@@ -7,7 +7,7 @@ import { getArticles, getCategories } from "@/lib/queries";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Artikel & Pengumuman — Stasi Yohanes Gabriel Perboyre",
+  title: "Artikel & Pengumuman — Paroki Yohanes Gabriel Perboyre",
 };
 
 export const revalidate = 300;

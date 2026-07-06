@@ -9,7 +9,7 @@ import { jakartaDateString } from "@/lib/format";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Jadwal Misa — Stasi Yohanes Gabriel Perboyre",
+  title: "Jadwal Misa — Paroki Yohanes Gabriel Perboyre",
 };
 
 export const revalidate = 300;
@@ -40,7 +40,7 @@ export default async function JadwalMisaPage() {
       <SectionHeading
         eyebrow="Peribadatan"
         title="Jadwal Misa"
-        description="Jadwal perayaan Ekaristi mingguan di Stasi Yohanes Gabriel Perboyre. Silakan datang tepat waktu dan berpakaian sopan."
+        description="Jadwal perayaan Ekaristi mingguan di Paroki Yohanes Gabriel Perboyre. Silakan datang tepat waktu dan berpakaian sopan."
       />
 
       <div className="mt-10 grid gap-10 lg:grid-cols-3">

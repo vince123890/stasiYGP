@@ -7,7 +7,7 @@ import { getGalleries } from "@/lib/queries";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Galeri — Stasi Yohanes Gabriel Perboyre",
+  title: "Galeri — Paroki Yohanes Gabriel Perboyre",
 };
 
 export const revalidate = 300;
@@ -20,7 +20,7 @@ export default async function GaleriPage() {
       <SectionHeading
         eyebrow="Dokumentasi"
         title="Galeri Foto"
-        description="Momen-momen kegiatan Stasi Yohanes Gabriel Perboyre."
+        description="Momen-momen kegiatan Paroki Yohanes Gabriel Perboyre."
       />
 
       <div className="mt-10 space-y-10">

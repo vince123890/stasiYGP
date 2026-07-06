@@ -4,7 +4,7 @@ import { getParishHistory } from "@/lib/queries";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Sejarah Paroki — Stasi Yohanes Gabriel Perboyre",
+  title: "Sejarah Paroki — Paroki Yohanes Gabriel Perboyre",
 };
 
 export const revalidate = 300;
@@ -17,7 +17,7 @@ export default async function SejarahPage() {
       <SectionHeading
         eyebrow="Perjalanan Kami"
         title="Sejarah Paroki"
-        description="Perjalanan Stasi Yohanes Gabriel Perboyre dari masa ke masa."
+        description="Perjalanan Paroki Yohanes Gabriel Perboyre dari masa ke masa."
       />
 
       <div className="mt-10 max-w-3xl space-y-8 border-l-2 border-parish-100 pl-8">

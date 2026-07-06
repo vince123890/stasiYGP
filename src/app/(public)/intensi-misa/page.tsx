@@ -6,7 +6,7 @@ import { getMassIntentionsInfo } from "@/lib/queries";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Intensi Misa — Stasi Yohanes Gabriel Perboyre",
+  title: "Intensi Misa — Paroki Yohanes Gabriel Perboyre",
 };
 
 export const revalidate = 300;

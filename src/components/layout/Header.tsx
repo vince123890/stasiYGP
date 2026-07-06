@@ -37,9 +37,9 @@ export function Header() {
     <header className="sticky top-0 z-50 border-b border-parish-100/80 bg-cream-50/90 backdrop-blur">
       <Container className="flex h-16 items-center justify-between">
         <Link href="/" className="flex items-center gap-2 font-display text-lg text-parish-900">
-          <Image src="/logo.png" alt="Logo Stasi Yohanes Gabriel Perboyre" width={36} height={36} className="h-9 w-9 object-contain" />
-          <span className="hidden sm:inline">Stasi Yohanes Gabriel Perboyre</span>
-          <span className="sm:hidden">StasiYGP</span>
+          <Image src="/logo.png" alt="Logo Paroki Yohanes Gabriel Perboyre" width={36} height={36} className="h-9 w-9 object-contain" />
+          <span className="hidden sm:inline">Paroki Yohanes Gabriel Perboyre</span>
+          <span className="sm:hidden">Paroki YGP</span>
         </Link>
 
         <nav className="hidden items-center gap-7 md:flex">

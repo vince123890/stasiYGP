@@ -30,7 +30,7 @@ const NAV = [
   { href: "/admin/jadwal-misa", label: "Jadwal Misa", icon: Clock },
   { href: "/admin/kalender-liturgi", label: "Kalender Liturgi", icon: CalendarHeart },
   { href: "/admin/hero-slides", label: "Hero Slides", icon: GalleryHorizontalEnd },
-  { href: "/admin/organisasi", label: "Organisasi (BGKS/DPS)", icon: Users },
+  { href: "/admin/organisasi", label: "Organisasi (BGKP/DPP)", icon: Users },
   { href: "/admin/pastor", label: "Pastor", icon: BookOpen },
   { href: "/admin/sejarah", label: "Sejarah", icon: BookOpen },
   { href: "/admin/kategorial", label: "Kategorial", icon: Heart },
@@ -50,7 +50,7 @@ export function AdminSidebar({ email }: { email: string }) {
       <div className="flex items-center gap-2 border-b border-parish-100 px-5 py-4">
         <Image src="/logo.png" alt="" width={32} height={32} className="h-8 w-8 object-contain" />
         <div>
-          <p className="font-display text-sm leading-tight text-parish-900">Admin StasiYGP</p>
+          <p className="font-display text-sm leading-tight text-parish-900">Admin Paroki YGP</p>
           <p className="truncate text-xs text-parish-700/60">{email}</p>
         </div>
       </div>

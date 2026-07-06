@@ -14,9 +14,9 @@ export function AnnouncementSection({ announcements }: { announcements: Announce
     <section>
       <div className="flex flex-wrap items-end justify-between gap-4">
         <SectionHeading
-          eyebrow="Info Stasi"
+          eyebrow="Info Paroki"
           title="Pengumuman"
-          description="Pernikahan, tahbisan, dan pengumuman penting seputar kehidupan stasi."
+          description="Pernikahan, tahbisan, dan pengumuman penting seputar kehidupan paroki."
         />
         <Button href="/pengumuman" variant="outline" size="sm">
           Lihat Semua

@@ -6,7 +6,7 @@ import { getOrganizationMembers } from "@/lib/queries";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Struktur Organisasi — Stasi Yohanes Gabriel Perboyre",
+  title: "Struktur Organisasi — Paroki Yohanes Gabriel Perboyre",
 };
 
 export const revalidate = 300;
@@ -22,21 +22,21 @@ export default async function OrganisasiPage() {
       <SectionHeading
         eyebrow="Kepengurusan"
         title="Struktur Organisasi"
-        description="Badan Gereja Kalisari Stasi (BGKS) dan Dewan Pastoral Stasi (DPS) Yohanes Gabriel Perboyre."
+        description="Badan Gereja Katolik Paroki (BGKP) dan Dewan Pastoral Paroki (DPP) Yohanes Gabriel Perboyre."
       />
 
       <div className="mt-10 grid gap-8 lg:grid-cols-2">
         <Card className="p-6">
-          <h2 className="font-display text-xl text-parish-900">BGKS</h2>
-          <p className="mt-1 text-sm text-parish-700/70">Badan Gereja Kalisari Stasi</p>
+          <h2 className="font-display text-xl text-parish-900">BGKP</h2>
+          <p className="mt-1 text-sm text-parish-700/70">Badan Gereja Katolik Paroki</p>
           <div className="mt-5">
             <OrganizationTree members={bgks} />
           </div>
         </Card>
 
         <Card className="p-6">
-          <h2 className="font-display text-xl text-parish-900">DPS</h2>
-          <p className="mt-1 text-sm text-parish-700/70">Dewan Pastoral Stasi</p>
+          <h2 className="font-display text-xl text-parish-900">DPP</h2>
+          <p className="mt-1 text-sm text-parish-700/70">Dewan Pastoral Paroki</p>
           <div className="mt-5">
             <OrganizationTree members={dps} />
           </div>

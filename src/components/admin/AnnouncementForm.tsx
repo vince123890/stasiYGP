@@ -16,7 +16,6 @@ const CATEGORIES = [
   "Tahbisan Imam",
   "Tahbisan Diakon",
   "Pengumuman Paroki",
-  "Pengumuman Stasi",
 ];
 
 export function AnnouncementForm({
@@ -42,7 +41,7 @@ export function AnnouncementForm({
             <Input id="slug" name="slug" defaultValue={announcement?.slug} />
           </Field>
           <Field label="Kategori" htmlFor="category">
-            <Select id="category" name="category" defaultValue={announcement?.category ?? CATEGORIES[4]}>
+            <Select id="category" name="category" defaultValue={announcement?.category ?? CATEGORIES[3]}>
               {CATEGORIES.map((c) => (
                 <option key={c} value={c}>
                   {c}

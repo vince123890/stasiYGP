@@ -18,7 +18,7 @@ export async function generateMetadata({
   const result = await getAnnouncementBySlug(slug);
   if (!result) return {};
   return {
-    title: `${result.announcement.title} — Stasi Yohanes Gabriel Perboyre`,
+    title: `${result.announcement.title} — Paroki Yohanes Gabriel Perboyre`,
     description: stripHtmlExcerpt(result.announcement.content),
   };
 }

@@ -1,13 +1,14 @@
-import { MapPin, Phone, Mail, Clock } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, ExternalLink } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Card } from "@/components/ui/Card";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Button } from "@/components/ui/Button";
+import { ParishMap } from "@/components/ParishMap";
 import { getParishProfile } from "@/lib/queries";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Profil Paroki — Stasi Yohanes Gabriel Perboyre",
+  title: "Profil Paroki — Paroki Yohanes Gabriel Perboyre",
 };
 
 export const revalidate = 300;
@@ -95,6 +96,21 @@ export default async function ProfilPage() {
               <Clock size={16} className="mt-0.5 shrink-0 text-parish-500" />
               {profile.office_hours}
             </p>
+          )}
+
+          {profile.map_embed_url && (
+            <div className="space-y-3 pt-2">
+              <ParishMap src={profile.map_embed_url} title={`Lokasi ${profile.stasi_name}`} />
+              <a
+                href="https://www.google.com/maps?q=-7.2702331,112.8091774"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-sm font-medium text-parish-600 hover:text-parish-700"
+              >
+                Buka di Google Maps
+                <ExternalLink size={13} />
+              </a>
+            </div>
           )}
         </Card>
       </div>

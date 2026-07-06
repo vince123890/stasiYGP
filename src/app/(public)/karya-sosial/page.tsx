@@ -6,7 +6,7 @@ import { getSocialMinistries } from "@/lib/queries";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Karya Sosial — Stasi Yohanes Gabriel Perboyre",
+  title: "Karya Sosial — Paroki Yohanes Gabriel Perboyre",
 };
 
 export const revalidate = 300;
@@ -21,7 +21,7 @@ export default async function KaryaSosialPage() {
       <SectionHeading
         eyebrow="Pelayanan Kasih"
         title="Karya Sosial"
-        description="Wujud kepedulian dan pelayanan kasih Stasi Yohanes Gabriel Perboyre kepada sesama."
+        description="Wujud kepedulian dan pelayanan kasih Paroki Yohanes Gabriel Perboyre kepada sesama."
       />
 
       <div className="mt-10 grid gap-6 sm:grid-cols-2">

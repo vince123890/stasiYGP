@@ -34,7 +34,7 @@ export default async function AdminDashboardPage() {
     <Container className="max-w-none px-6 py-10 lg:px-10">
       <h1 className="font-display text-2xl text-parish-900">Dashboard</h1>
       <p className="mt-1 text-sm text-parish-700/70">
-        Ringkasan konten Stasi Yohanes Gabriel Perboyre.
+        Ringkasan konten Paroki Yohanes Gabriel Perboyre.
       </p>
 
       <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">

@@ -8,7 +8,7 @@ import { getEffectiveToday, getEffectiveRange } from "@/lib/liturgical-effective
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Kalender Liturgi — Stasi Yohanes Gabriel Perboyre",
+  title: "Kalender Liturgi — Paroki Yohanes Gabriel Perboyre",
 };
 
 export const revalidate = 21600;

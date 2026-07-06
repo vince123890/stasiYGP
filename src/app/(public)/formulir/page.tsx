@@ -7,7 +7,7 @@ import { getSacramentForms } from "@/lib/queries";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Formulir — Stasi Yohanes Gabriel Perboyre",
+  title: "Formulir — Paroki Yohanes Gabriel Perboyre",
 };
 
 export const revalidate = 300;
@@ -20,7 +20,7 @@ export default async function FormulirPage() {
       <SectionHeading
         eyebrow="Administrasi"
         title="Formulir"
-        description="Unduh formulir untuk keperluan sakramen dan administrasi stasi."
+        description="Unduh formulir untuk keperluan sakramen dan administrasi paroki."
       />
 
       <div className="mt-10 grid gap-4 sm:grid-cols-2">

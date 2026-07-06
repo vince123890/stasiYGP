@@ -14,9 +14,9 @@ const fraunces = Fraunces({
 });
 
 export const metadata: Metadata = {
-  title: "Stasi Yohanes Gabriel Perboyre",
+  title: "Paroki Yohanes Gabriel Perboyre",
   description:
-    "Website resmi Stasi Yohanes Gabriel Perboyre — jadwal misa, artikel, pengumuman, dan kalender liturgi.",
+    "Website resmi Paroki Yohanes Gabriel Perboyre — jadwal misa, artikel, pengumuman, dan kalender liturgi.",
 };
 
 export default function RootLayout({
