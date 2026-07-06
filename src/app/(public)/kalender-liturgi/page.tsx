@@ -1,6 +1,7 @@
 import { Container } from "@/components/ui/Container";
 import { Card } from "@/components/ui/Card";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { LiturgicalDateBadge } from "@/components/liturgical/LiturgicalDateBadge";
 import { formatDate, jakartaDateString } from "@/lib/format";
 import { LITURGICAL_COLOR_STYLES } from "@/lib/liturgical-color";
 import { getEffectiveToday, getEffectiveRange } from "@/lib/liturgical-effective";
@@ -32,63 +33,61 @@ export default async function KalenderLiturgiPage() {
       />
 
       {todayDay && (
-        <Card
-          className={`mt-10 overflow-hidden ${LITURGICAL_COLOR_STYLES[todayDay.liturgical_color].solid}`}
+        <div
+          className={`mt-10 rounded-2xl p-6 shadow-[0_2px_20px_-6px_rgba(28,60,45,0.2)] sm:p-8 ${LITURGICAL_COLOR_STYLES[todayDay.liturgical_color].solid}`}
         >
-          <div className="p-6 sm:p-8">
-            <p
-              className={`text-xs font-semibold uppercase tracking-wide ${LITURGICAL_COLOR_STYLES[todayDay.liturgical_color].solidText} opacity-80`}
-            >
-              Hari Ini — {formatDate(todayDay.calendar_date)}
-            </p>
-            <h2
-              className={`mt-2 font-display text-2xl sm:text-3xl ${LITURGICAL_COLOR_STYLES[todayDay.liturgical_color].solidText}`}
-            >
-              {todayDay.celebration_name}
-            </h2>
-            <p
-              className={`mt-2 text-sm font-medium ${LITURGICAL_COLOR_STYLES[todayDay.liturgical_color].solidText} opacity-90`}
-            >
-              Warna Liturgi: {LITURGICAL_COLOR_STYLES[todayDay.liturgical_color].label}
-              {todayDay.rank && ` · ${todayDay.rank}`}
-            </p>
+          <p
+            className={`text-xs font-semibold uppercase tracking-wide ${LITURGICAL_COLOR_STYLES[todayDay.liturgical_color].solidText} opacity-80`}
+          >
+            Hari Ini — {formatDate(todayDay.calendar_date)}
+          </p>
+          <h2
+            className={`mt-2 font-display text-2xl sm:text-3xl ${LITURGICAL_COLOR_STYLES[todayDay.liturgical_color].solidText}`}
+          >
+            {todayDay.celebration_name}
+          </h2>
+          <p
+            className={`mt-2 text-sm font-medium ${LITURGICAL_COLOR_STYLES[todayDay.liturgical_color].solidText} opacity-90`}
+          >
+            Warna Liturgi: {LITURGICAL_COLOR_STYLES[todayDay.liturgical_color].label}
+            {todayDay.rank && ` · ${todayDay.rank}`}
+          </p>
 
-            {Object.values(todayDay.readings).some(Boolean) && (
-              <div
-                className={`mt-5 space-y-1.5 border-t border-white/20 pt-5 text-sm ${LITURGICAL_COLOR_STYLES[todayDay.liturgical_color].solidText} opacity-90`}
-              >
-                {todayDay.readings.first_reading && (
-                  <p>
-                    <span className="font-semibold">Bacaan I:</span>{" "}
-                    {todayDay.readings.first_reading}
-                  </p>
-                )}
-                {todayDay.readings.psalm && (
-                  <p>
-                    <span className="font-semibold">Mazmur:</span> {todayDay.readings.psalm}
-                  </p>
-                )}
-                {todayDay.readings.second_reading && (
-                  <p>
-                    <span className="font-semibold">Bacaan II:</span>{" "}
-                    {todayDay.readings.second_reading}
-                  </p>
-                )}
-                {todayDay.readings.gospel && (
-                  <p>
-                    <span className="font-semibold">Injil:</span> {todayDay.readings.gospel}
-                  </p>
-                )}
-                {todayDay.readings.office_reading && (
-                  <p>
-                    <span className="font-semibold">Bacaan Ofisi (BcO):</span>{" "}
-                    {todayDay.readings.office_reading}
-                  </p>
-                )}
-              </div>
-            )}
-          </div>
-        </Card>
+          {Object.values(todayDay.readings).some(Boolean) && (
+            <div
+              className={`mt-5 space-y-1.5 border-t border-black/10 pt-5 text-sm ${LITURGICAL_COLOR_STYLES[todayDay.liturgical_color].solidText} opacity-90`}
+            >
+              {todayDay.readings.first_reading && (
+                <p>
+                  <span className="font-semibold">Bacaan I:</span>{" "}
+                  {todayDay.readings.first_reading}
+                </p>
+              )}
+              {todayDay.readings.psalm && (
+                <p>
+                  <span className="font-semibold">Mazmur:</span> {todayDay.readings.psalm}
+                </p>
+              )}
+              {todayDay.readings.second_reading && (
+                <p>
+                  <span className="font-semibold">Bacaan II:</span>{" "}
+                  {todayDay.readings.second_reading}
+                </p>
+              )}
+              {todayDay.readings.gospel && (
+                <p>
+                  <span className="font-semibold">Injil:</span> {todayDay.readings.gospel}
+                </p>
+              )}
+              {todayDay.readings.office_reading && (
+                <p>
+                  <span className="font-semibold">Bacaan Ofisi (BcO):</span>{" "}
+                  {todayDay.readings.office_reading}
+                </p>
+              )}
+            </div>
+          )}
+        </div>
       )}
 
       {rest.length > 0 && (
@@ -97,25 +96,22 @@ export default async function KalenderLiturgiPage() {
             Hari-Hari Mendatang
           </h3>
           <Card className="divide-y divide-parish-100 p-0">
-            {rest.map((day) => {
-              const color = LITURGICAL_COLOR_STYLES[day.liturgical_color];
-              return (
-                <div key={day.calendar_date} className="flex items-start gap-4 p-5">
-                  <span className={`mt-1 h-8 w-2 shrink-0 rounded-full ${color.solid}`} />
-                  <div className="min-w-0 flex-1">
-                    <p className="text-xs font-medium uppercase tracking-wide text-parish-500">
-                      {formatDate(day.calendar_date)}
-                    </p>
-                    <p className="mt-0.5 font-display text-base text-parish-900">
-                      {day.celebration_name}
-                    </p>
-                    {day.rank && (
-                      <p className="mt-1 text-sm text-parish-700/70">{day.rank}</p>
-                    )}
-                  </div>
+            {rest.map((day) => (
+              <div key={day.calendar_date} className="flex items-center gap-4 p-4">
+                <LiturgicalDateBadge date={day.calendar_date} color={day.liturgical_color} />
+                <div className="min-w-0 flex-1">
+                  <p className="text-xs font-medium uppercase tracking-wide text-parish-500">
+                    {formatDate(day.calendar_date)}
+                  </p>
+                  <p className="mt-0.5 font-display text-base text-parish-900">
+                    {day.celebration_name}
+                  </p>
+                  {day.rank && (
+                    <p className="mt-1 text-sm text-parish-700/70">{day.rank}</p>
+                  )}
                 </div>
-              );
-            })}
+              </div>
+            ))}
           </Card>
         </div>
       )}

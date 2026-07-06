@@ -61,8 +61,68 @@ const SEASON_MAP: Record<string, string> = {
   "Ordinary Time": "Masa Biasa",
 };
 
+const SEASON_SHORT: Record<string, string> = {
+  ordinarytime: "Biasa",
+  advent: "Adven",
+  lent: "Prapaskah",
+  easter: "Paskah",
+  eastertide: "Paskah",
+};
+
+const ROMAN = [
+  "", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X",
+  "XI", "XII", "XIII", "XIV", "XV", "XVI", "XVII", "XVIII", "XIX", "XX",
+  "XXI", "XXII", "XXIII", "XXIV", "XXV", "XXVI", "XXVII", "XXVIII", "XXIX", "XXX",
+  "XXXI", "XXXII", "XXXIII", "XXXIV",
+];
+
+// Ordered longest-first so multi-word descriptors are replaced before their parts.
+const TITLE_REPLACEMENTS: [RegExp, string][] = [
+  [/Doctor of the Church/gi, "Pujangga Gereja"],
+  [/, Patron of Europe/gi, ", Pelindung Eropa"],
+  [/and Companions/gi, "dan kawan-kawan"],
+  [/Priests?/g, "Imam"],
+  [/Bishops?/g, "Uskup"],
+  [/Popes?/g, "Paus"],
+  [/Abbots?/g, "Abas"],
+  [/Martyrs?/g, "Martir"],
+  [/Virgins?/g, "Perawan"],
+  [/Apostles?/g, "Rasul"],
+  [/Evangelists?/g, "Penginjil"],
+  [/Deacons?/g, "Diakon"],
+  [/Doctors?/g, "Pujangga"],
+  [/Religious/g, "Biarawan"],
+  [/Hermits?/g, "Pertapa"],
+  [/Kings?/g, "Raja"],
+  [/Queens?/g, "Ratu"],
+  [/\bSaints\s+/g, "St. "],
+  [/\bSaint\s+/g, "St. "],
+  [/\bBlessed\s+/g, "Beato "],
+  [/, and /g, ", dan "],
+  [/ and /g, " dan "],
+];
+
+function translateSaintTitles(name: string): string {
+  let result = name;
+  for (const [pattern, replacement] of TITLE_REPLACEMENTS) {
+    result = result.replace(pattern, replacement);
+  }
+  return result;
+}
+
 function translateGenericName(key: string, romcalName: string, season: string): string {
   if (NAME_MAP[key]) return NAME_MAP[key];
+
+  // Sundays: "15th Sunday of Ordinary Time" -> "Hari Minggu Biasa XV"
+  const sundayMatch =
+    key.match(/^(\d+)(?:st|nd|rd|th)SundayOf(\w+)$/i) ??
+    romcalName.match(/^(\d+)(?:st|nd|rd|th) Sunday of (?:the )?(.+)$/i);
+  if (sundayMatch) {
+    const week = Number(sundayMatch[1]);
+    const seasonShort =
+      SEASON_SHORT[sundayMatch[2].toLowerCase().replace(/\s+/g, "")] ?? sundayMatch[2];
+    return `Hari Minggu ${seasonShort} ${ROMAN[week] ?? week}`;
+  }
 
   const weekMatch = key.match(/^(\d+)(?:st|nd|rd|th)WeekOf(OrdinaryTime|Advent|Lent|Easter)$/i);
   if (weekMatch) {
@@ -87,6 +147,11 @@ function translateGenericName(key: string, romcalName: string, season: string): 
   }
 
   if (/^Hari Biasa/i.test(romcalName) || key.includes("feria")) return "Hari Biasa";
+
+  // Saints and blesseds: translate the common title words, keep the name itself.
+  if (/^(Saints?|Blessed|Our Lady)\b/.test(romcalName)) {
+    return translateSaintTitles(romcalName);
+  }
 
   // Fall back to the original English name — better than a broken translation.
   return romcalName;
