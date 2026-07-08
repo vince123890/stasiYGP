@@ -17,7 +17,7 @@ export function formToValues(
   const boolFields = new Set(options?.boolFields ?? []);
 
   for (const [key, raw] of formData.entries()) {
-    if (key === "id" || key.startsWith("_")) continue;
+    if (key === "id" || key.startsWith("_") || key.includes("[")) continue;
     const value = typeof raw === "string" ? raw : "";
 
     if (boolFields.has(key)) {
