@@ -3,6 +3,7 @@ import Image from "next/image";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { DEFAULT_MAP_EMBED_URL } from "@/components/ParishMap";
+import { RichTextContent } from "@/components/ui/RichTextContent";
 import { getParishProfile } from "@/lib/queries";
 
 export async function Footer() {
@@ -65,10 +66,7 @@ export async function Footer() {
             {profile?.address && (
               <li className="flex items-start gap-2">
                 <MapPin size={16} className="mt-0.5 shrink-0" />
-                <div
-                  className="prose prose-invert prose-sm max-w-none [&_p]:m-0"
-                  dangerouslySetInnerHTML={{ __html: profile.address }}
-                />
+                <RichTextContent html={profile.address} />
               </li>
             )}
             {profile?.phone1 && (
@@ -93,10 +91,7 @@ export async function Footer() {
           {profile?.office_hours && (
             <div className="mt-4 flex items-start gap-2 text-sm text-parish-100/80">
               <Clock size={16} className="mt-0.5 shrink-0" />
-              <div
-                className="prose prose-invert prose-sm max-w-none [&_p]:m-0"
-                dangerouslySetInnerHTML={{ __html: profile.office_hours }}
-              />
+              <RichTextContent html={profile.office_hours} />
             </div>
           )}
 

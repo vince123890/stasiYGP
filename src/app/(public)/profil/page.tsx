@@ -4,6 +4,7 @@ import { Card } from "@/components/ui/Card";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Button } from "@/components/ui/Button";
 import { ParishMap } from "@/components/ParishMap";
+import { RichTextContent } from "@/components/ui/RichTextContent";
 import { getParishProfile } from "@/lib/queries";
 import type { Metadata } from "next";
 
@@ -31,9 +32,9 @@ export default async function ProfilPage() {
           {profile.about_saint && (
             <div>
               <h2 className="font-display text-xl text-parish-900">Tentang Santo Pelindung</h2>
-              <div
-                className="prose prose-parish mt-4 max-w-none text-base leading-relaxed text-parish-800/90"
-                dangerouslySetInnerHTML={{ __html: profile.about_saint }}
+              <RichTextContent
+                html={profile.about_saint}
+                className="mt-4 text-base text-parish-800/90"
               />
             </div>
           )}
@@ -41,9 +42,9 @@ export default async function ProfilPage() {
           {profile.vision && (
             <div>
               <h2 className="font-display text-xl text-parish-900">Visi</h2>
-              <div
-                className="prose prose-parish mt-4 max-w-none text-base leading-relaxed text-parish-800/90"
-                dangerouslySetInnerHTML={{ __html: profile.vision }}
+              <RichTextContent
+                html={profile.vision}
+                className="mt-4 text-base text-parish-800/90"
               />
             </div>
           )}
@@ -51,9 +52,9 @@ export default async function ProfilPage() {
           {profile.mission && (
             <div>
               <h2 className="font-display text-xl text-parish-900">Misi</h2>
-              <div
-                className="prose prose-parish mt-4 max-w-none text-base leading-relaxed text-parish-800/90"
-                dangerouslySetInnerHTML={{ __html: profile.mission }}
+              <RichTextContent
+                html={profile.mission}
+                className="mt-4 text-base text-parish-800/90"
               />
             </div>
           )}
@@ -77,10 +78,7 @@ export default async function ProfilPage() {
           </h3>
           <div className="flex items-start gap-2 text-sm text-parish-800">
             <MapPin size={16} className="mt-0.5 shrink-0 text-parish-500" />
-            <div
-              className="prose prose-parish prose-sm max-w-none [&_p]:m-0"
-              dangerouslySetInnerHTML={{ __html: profile.address }}
-            />
+            <RichTextContent html={profile.address} />
           </div>
           {profile.phone1 && (
             <p className="flex items-center gap-2 text-sm text-parish-800">
@@ -97,10 +95,7 @@ export default async function ProfilPage() {
           {profile.office_hours && (
             <div className="flex items-start gap-2 text-sm text-parish-800">
               <Clock size={16} className="mt-0.5 shrink-0 text-parish-500" />
-              <div
-                className="prose prose-parish prose-sm max-w-none [&_p]:m-0"
-                dangerouslySetInnerHTML={{ __html: profile.office_hours }}
-              />
+              <RichTextContent html={profile.office_hours} />
             </div>
           )}
 

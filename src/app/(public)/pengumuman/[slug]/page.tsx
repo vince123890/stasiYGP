@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, Megaphone, Paperclip } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Badge } from "@/components/ui/Badge";
+import { RichTextContent } from "@/components/ui/RichTextContent";
 import { formatDate, stripHtmlExcerpt } from "@/lib/format";
 import { getAnnouncementBySlug } from "@/lib/queries";
 import type { Metadata } from "next";
@@ -61,9 +62,9 @@ export default async function AnnouncementDetailPage({
         {formatDate(announcement.published_at)}
       </p>
 
-      <div
-        className="prose prose-parish mt-8 max-w-none text-base leading-relaxed text-parish-800/90"
-        dangerouslySetInnerHTML={{ __html: announcement.content }}
+      <RichTextContent
+        html={announcement.content}
+        className="mt-8 text-base text-parish-800/90"
       />
 
       {announcement.attachment_url && (

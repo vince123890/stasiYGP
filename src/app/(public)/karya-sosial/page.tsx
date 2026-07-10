@@ -2,6 +2,7 @@ import { Heart, Gift, Calendar, BookOpen } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Card } from "@/components/ui/Card";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { RichTextContent } from "@/components/ui/RichTextContent";
 import { getSocialMinistries } from "@/lib/queries";
 import type { Metadata } from "next";
 
@@ -34,15 +35,15 @@ export default async function KaryaSosialPage() {
               </span>
               <h3 className="mt-4 font-display text-lg text-parish-900">{m.name}</h3>
               {m.description && (
-                <div
-                  className="prose prose-parish prose-sm mt-2 max-w-none text-parish-800/90"
-                  dangerouslySetInnerHTML={{ __html: m.description }}
+                <RichTextContent
+                  html={m.description}
+                  className="mt-2 text-sm text-parish-800/90"
                 />
               )}
               {m.activities && (
-                <div
-                  className="prose prose-parish mt-4 max-w-none border-t border-parish-100 pt-4 text-sm text-parish-700/80"
-                  dangerouslySetInnerHTML={{ __html: m.activities }}
+                <RichTextContent
+                  html={m.activities}
+                  className="mt-4 border-t border-parish-100 pt-4 text-sm text-parish-700/80"
                 />
               )}
             </Card>

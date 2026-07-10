@@ -60,6 +60,8 @@ body {
   font-family: var(--font-display), Georgia, serif;
 }
 
+/* Editor chrome only — let Quill's own snow.css handle list markers so we
+   don't get double bullets/numbers. Do NOT add list-style rules here. */
 .rich-text-editor .ql-toolbar.ql-snow {
   border: none;
   border-bottom: 1px solid var(--color-parish-100);
@@ -74,17 +76,4 @@ body {
 
 .rich-text-editor .ql-editor {
   min-height: 160px;
-}
-
-.rich-text-editor .ql-editor ul,
-.rich-text-editor .ql-editor ol {
-  padding-left: 1.5em;
-}
-
-.rich-text-editor .ql-editor ul > li {
-  list-style-type: disc;
-}
-
-.rich-text-editor .ql-editor ol > li {
-  list-style-type: decimal;
 }

@@ -3,6 +3,7 @@ import { Container } from "@/components/ui/Container";
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { RichTextContent } from "@/components/ui/RichTextContent";
 import { getSacramentForms } from "@/lib/queries";
 import type { Metadata } from "next";
 
@@ -42,9 +43,9 @@ export default async function FormulirPage() {
                   {f.name}
                 </h3>
                 {f.description && (
-                  <div
-                    className="prose prose-parish prose-sm mt-1 max-w-none text-parish-700/75"
-                    dangerouslySetInnerHTML={{ __html: f.description }}
+                  <RichTextContent
+                    html={f.description}
+                    className="mt-1 text-sm text-parish-700/75"
                   />
                 )}
                 <span className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-parish-600">

@@ -2,6 +2,7 @@ import { Phone, Landmark } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Card } from "@/components/ui/Card";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { RichTextContent } from "@/components/ui/RichTextContent";
 import { getMassIntentionsInfo } from "@/lib/queries";
 import type { Metadata } from "next";
 
@@ -37,9 +38,9 @@ export default async function IntensiMisaPage() {
         {info.format_info && (
           <div>
             <h2 className="font-display text-lg text-parish-900">Format Intensi</h2>
-            <div
-              className="prose prose-parish mt-3 max-w-none text-sm leading-relaxed text-parish-800/90"
-              dangerouslySetInnerHTML={{ __html: info.format_info }}
+            <RichTextContent
+              html={info.format_info}
+              className="mt-3 text-sm text-parish-800/90"
             />
           </div>
         )}
@@ -47,9 +48,9 @@ export default async function IntensiMisaPage() {
         {info.deadline_info && (
           <div>
             <h2 className="font-display text-lg text-parish-900">Batas Penyampaian</h2>
-            <div
-              className="prose prose-parish mt-3 max-w-none text-sm leading-relaxed text-parish-800/90"
-              dangerouslySetInnerHTML={{ __html: info.deadline_info }}
+            <RichTextContent
+              html={info.deadline_info}
+              className="mt-3 text-sm text-parish-800/90"
             />
           </div>
         )}
@@ -57,9 +58,9 @@ export default async function IntensiMisaPage() {
         {info.offering_info && (
           <div>
             <h2 className="font-display text-lg text-parish-900">Persembahan</h2>
-            <div
-              className="prose prose-parish mt-3 max-w-none text-sm leading-relaxed text-parish-800/90"
-              dangerouslySetInnerHTML={{ __html: info.offering_info }}
+            <RichTextContent
+              html={info.offering_info}
+              className="mt-3 text-sm text-parish-800/90"
             />
           </div>
         )}

@@ -5,6 +5,7 @@ import { ArrowLeft, Paperclip } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Badge } from "@/components/ui/Badge";
 import { Gallery } from "@/components/articles/Gallery";
+import { RichTextContent } from "@/components/ui/RichTextContent";
 import { formatDate, stripHtmlExcerpt } from "@/lib/format";
 import { getArticleBySlug } from "@/lib/queries";
 import type { Metadata } from "next";
@@ -74,9 +75,9 @@ export default async function ArticleDetailPage({
             {article.author && ` · ${article.author}`}
           </p>
 
-          <div
-            className="prose prose-parish mt-8 max-w-none text-base leading-relaxed text-parish-800/90"
-            dangerouslySetInnerHTML={{ __html: article.content }}
+          <RichTextContent
+            html={article.content}
+            className="mt-8 text-base text-parish-800/90"
           />
 
           {images.length > 0 && (

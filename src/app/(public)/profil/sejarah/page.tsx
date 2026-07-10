@@ -1,5 +1,6 @@
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { RichTextContent } from "@/components/ui/RichTextContent";
 import { getParishHistory } from "@/lib/queries";
 import type { Metadata } from "next";
 
@@ -28,9 +29,9 @@ export default async function SejarahPage() {
             <p className="mt-0.5 text-sm font-semibold uppercase tracking-wide text-gold-600">
               {h.category}
             </p>
-            <div
-              className="prose prose-parish mt-3 max-w-none text-sm leading-relaxed text-parish-800/90"
-              dangerouslySetInnerHTML={{ __html: h.content }}
+            <RichTextContent
+              html={h.content}
+              className="mt-3 text-sm text-parish-800/90"
             />
           </div>
         ))}

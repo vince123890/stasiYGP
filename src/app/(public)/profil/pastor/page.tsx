@@ -1,6 +1,7 @@
 import { Container } from "@/components/ui/Container";
 import { Card } from "@/components/ui/Card";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { RichTextContent } from "@/components/ui/RichTextContent";
 import { getPastors } from "@/lib/queries";
 import type { Metadata } from "next";
 import type { Pastor } from "@/types/database";
@@ -21,9 +22,9 @@ function PastorCard({ pastor }: { pastor: Pastor }) {
           ` · ${pastor.serve_from}${pastor.serve_to ? `–${pastor.serve_to}` : '–sekarang'}`}
       </p>
       {pastor.biography && (
-        <div
-          className="prose prose-parish prose-sm mt-3 max-w-none text-parish-800/90"
-          dangerouslySetInnerHTML={{ __html: pastor.biography }}
+        <RichTextContent
+          html={pastor.biography}
+          className="mt-3 text-sm text-parish-800/90"
         />
       )}
     </Card>

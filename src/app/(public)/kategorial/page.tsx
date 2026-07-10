@@ -1,6 +1,7 @@
 import { Container } from "@/components/ui/Container";
 import { Card } from "@/components/ui/Card";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { RichTextContent } from "@/components/ui/RichTextContent";
 import { getCategoricalGroups } from "@/lib/queries";
 import type { Metadata } from "next";
 
@@ -25,9 +26,9 @@ export default async function KategorialPage() {
         {groups.map((g) => (
           <Card key={g.id} className="p-6">
             <h3 className="font-display text-lg text-parish-900">{g.name}</h3>
-            <div
-              className="prose prose-parish mt-3 max-w-none text-sm leading-relaxed text-parish-800/90"
-              dangerouslySetInnerHTML={{ __html: g.content }}
+            <RichTextContent
+              html={g.content}
+              className="mt-3 text-sm text-parish-800/90"
             />
             <div className="mt-4 space-y-1 border-t border-parish-100 pt-4 text-sm text-parish-700/80">
               {g.schedule && <p>Jadwal: {g.schedule}</p>}
