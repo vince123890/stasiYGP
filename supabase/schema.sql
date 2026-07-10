@@ -200,7 +200,7 @@ create table neighborhoods (
 create table pastors (
   id uuid primary key default gen_random_uuid(),
   pastor_type text not null check (pastor_type in ('Gembala Kami', 'Pernah Berkarya')),
-  priest_type text not null check (priest_type in ('Romo Paroki', 'Romo Rekan')),
+  priest_type text not null check (priest_type in ('Pastor Paroki', 'Pastor Rekan')),
   name text not null,
   nickname text,
   ordination_date date,
@@ -346,10 +346,10 @@ insert into parish_history (year, category, content, sort_order) values
 
 -- Pastors (from `pastors`)
 insert into pastors (pastor_type, priest_type, name, nickname, ordination_date, serve_from, serve_to, biography, sort_order) values
-  ('Gembala Kami', 'Romo Paroki', 'RD. Yohanes Dwi Harsanto, Pr.', 'Romo Yohanes', '2015-08-15', 2022, null, 'Ditahbiskan sebagai imam pada 15 Agustus 2015. Mulai berkarya di stasi sejak tahun 2022. Sebelumnya bertugas di beberapa paroki di Keuskupan.', 0),
-  ('Gembala Kami', 'Romo Rekan', 'RD. Antonius Budi Santosa, CM', 'Romo Anton', '2018-06-10', 2023, null, 'Anggota Kongregasi Misi (CM) atau Vincentian. Bergabung membantu pelayanan di stasi sejak tahun 2023, khususnya dalam pembinaan kaum muda dan kategorial.', 1),
-  ('Pernah Berkarya', 'Romo Paroki', 'RD. Petrus Sugiarto, Pr.', 'Romo Petrus', '2005-07-20', 2018, 2022, 'Berkarya di stasi periode 2018-2022. Dikenal sebagai pastor yang sangat peduli dengan karya sosial dan pemberdayaan umat.', 2),
-  ('Pernah Berkarya', 'Romo Rekan', 'RD. Andreas Suryanto, CM', 'Romo Andreas', '2010-05-30', 2019, 2023, 'Membantu pelayanan di stasi periode 2019-2023. Fokus pada pembinaan liturgi dan pelayanan sakramen.', 3);
+  ('Gembala Kami', 'Pastor Paroki', 'RD. Yohanes Dwi Harsanto, Pr.', 'Pastor Yohanes', '2015-08-15', 2022, null, 'Ditahbiskan sebagai imam pada 15 Agustus 2015. Mulai berkarya di stasi sejak tahun 2022. Sebelumnya bertugas di beberapa paroki di Keuskupan.', 0),
+  ('Gembala Kami', 'Pastor Rekan', 'RD. Antonius Budi Santosa, CM', 'Pastor Anton', '2018-06-10', 2023, null, 'Anggota Kongregasi Misi (CM) atau Vincentian. Bergabung membantu pelayanan di stasi sejak tahun 2023, khususnya dalam pembinaan kaum muda dan kategorial.', 1),
+  ('Pernah Berkarya', 'Pastor Paroki', 'RD. Petrus Sugiarto, Pr.', 'Pastor Petrus', '2005-07-20', 2018, 2022, 'Berkarya di stasi periode 2018-2022. Dikenal sebagai pastor yang sangat peduli dengan karya sosial dan pemberdayaan umat.', 2),
+  ('Pernah Berkarya', 'Pastor Rekan', 'RD. Andreas Suryanto, CM', 'Pastor Andreas', '2010-05-30', 2019, 2023, 'Membantu pelayanan di stasi periode 2019-2023. Fokus pada pembinaan liturgi dan pelayanan sakramen.', 3);
 
 -- Categorical groups (from `kategoriales`)
 insert into categorical_groups (name, content, schedule, contact, sort_order) values
@@ -433,7 +433,7 @@ from (
   values
     ('Perayaan Paskah di Stasi Yohanes Gabriel Perboyre', 'perayaan-paskah',
      'Tim Redaksi',
-     'Perayaan Paskah di Stasi Yohanes Gabriel Perboyre berlangsung dengan khidmat dan meriah. Misa Paskah dipimpin oleh Romo Paroki dengan dihadiri ratusan umat dari berbagai lingkungan. Acara dimulai dengan Vigili Paskah pada Sabtu malam, dilanjutkan dengan Misa Paskah pada hari Minggu pagi.',
+     'Perayaan Paskah di Stasi Yohanes Gabriel Perboyre berlangsung dengan khidmat dan meriah. Misa Paskah dipimpin oleh Pastor Paroki dengan dihadiri ratusan umat dari berbagai lingkungan. Acara dimulai dengan Vigili Paskah pada Sabtu malam, dilanjutkan dengan Misa Paskah pada hari Minggu pagi.',
      'https://images.unsplash.com/photo-1512389142860-9c449e58a543?w=1200&q=80',
      'kegiatan-paroki', 'published', current_date - 90),
     ('Retret Kaum Muda: Menemukan Makna Hidup di Era Digital', 'retret-kaum-muda',

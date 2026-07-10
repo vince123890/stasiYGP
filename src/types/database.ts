@@ -7,7 +7,7 @@ export type AnnouncementCategory =
   | "Pengumuman Paroki";
 export type OrganizationGroup = "BGKS" | "DPS";
 export type PastorType = "Gembala Kami" | "Pernah Berkarya";
-export type PriestType = "Romo Paroki" | "Romo Rekan";
+export type PriestType = "Pastor Paroki" | "Pastor Rekan";
 
 export interface Category {
   id: string;

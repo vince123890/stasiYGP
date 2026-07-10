@@ -35,8 +35,8 @@ export default async function NewPastorPage() {
               name: "priest_type",
               label: "Tipe",
               options: [
-                { value: "Romo Paroki", label: "Romo Paroki" },
-                { value: "Romo Rekan", label: "Romo Rekan" },
+                { value: "Pastor Paroki", label: "Pastor Paroki" },
+                { value: "Pastor Rekan", label: "Pastor Rekan" },
               ],
             },
             { type: "date", name: "ordination_date", label: "Tanggal Tahbisan" },
