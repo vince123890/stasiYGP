@@ -59,3 +59,32 @@ body {
 .font-display {
   font-family: var(--font-display), Georgia, serif;
 }
+
+.rich-text-editor .ql-toolbar.ql-snow {
+  border: none;
+  border-bottom: 1px solid var(--color-parish-100);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+.rich-text-editor .ql-container.ql-snow {
+  border: none;
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  font-size: 0.875rem;
+}
+
+.rich-text-editor .ql-editor {
+  min-height: 160px;
+}
+
+.rich-text-editor .ql-editor ul,
+.rich-text-editor .ql-editor ol {
+  padding-left: 1.5em;
+}
+
+.rich-text-editor .ql-editor ul > li {
+  list-style-type: disc;
+}
+
+.rich-text-editor .ql-editor ol > li {
+  list-style-type: decimal;
+}
