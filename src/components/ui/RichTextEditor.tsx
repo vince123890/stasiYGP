@@ -27,6 +27,7 @@ function ToolbarButton({
   return (
     <button
       type="button"
+      onMouseDown={(e) => e.preventDefault()}
       onClick={onClick}
       aria-label={label}
       className={cn(
@@ -47,12 +48,15 @@ export function RichTextEditor({
   defaultValue?: string;
 }) {
   const [html, setHtml] = useState(defaultValue ?? "");
+  const [, forceRender] = useState(0);
 
   const editor = useEditor({
     extensions: [StarterKit.configure({ link: { openOnClick: false } })],
     content: defaultValue ?? "",
     immediatelyRender: false,
     onUpdate: ({ editor }) => setHtml(editor.getHTML()),
+    onSelectionUpdate: () => forceRender((n) => n + 1),
+    onTransaction: () => forceRender((n) => n + 1),
   });
 
   if (!editor) return null;
