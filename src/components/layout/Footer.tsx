@@ -65,7 +65,10 @@ export async function Footer() {
             {profile?.address && (
               <li className="flex items-start gap-2">
                 <MapPin size={16} className="mt-0.5 shrink-0" />
-                {profile.address}
+                <div
+                  className="prose prose-invert prose-sm max-w-none [&_p]:m-0"
+                  dangerouslySetInnerHTML={{ __html: profile.address }}
+                />
               </li>
             )}
             {profile?.phone1 && (
@@ -88,10 +91,13 @@ export async function Footer() {
             Jam Sekretariat
           </h3>
           {profile?.office_hours && (
-            <p className="mt-4 flex items-start gap-2 text-sm text-parish-100/80">
+            <div className="mt-4 flex items-start gap-2 text-sm text-parish-100/80">
               <Clock size={16} className="mt-0.5 shrink-0" />
-              {profile.office_hours}
-            </p>
+              <div
+                className="prose prose-invert prose-sm max-w-none [&_p]:m-0"
+                dangerouslySetInnerHTML={{ __html: profile.office_hours }}
+              />
+            </div>
           )}
 
           <div className="mt-5">

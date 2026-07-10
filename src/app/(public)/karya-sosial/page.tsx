@@ -33,7 +33,12 @@ export default async function KaryaSosialPage() {
                 <Icon size={20} />
               </span>
               <h3 className="mt-4 font-display text-lg text-parish-900">{m.name}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-parish-800/90">{m.description}</p>
+              {m.description && (
+                <div
+                  className="prose prose-parish prose-sm mt-2 max-w-none text-parish-800/90"
+                  dangerouslySetInnerHTML={{ __html: m.description }}
+                />
+              )}
               {m.activities && (
                 <div
                   className="prose prose-parish mt-4 max-w-none border-t border-parish-100 pt-4 text-sm text-parish-700/80"

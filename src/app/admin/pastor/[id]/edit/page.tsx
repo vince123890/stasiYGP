@@ -54,7 +54,7 @@ export default async function EditPastorPage({
             { type: "date", name: "ordination_date", label: "Tanggal Tahbisan" },
             { type: "number", name: "serve_from", label: "Berkarya Dari (Tahun)" },
             { type: "number", name: "serve_to", label: "Berkarya Sampai (Tahun)" },
-            { type: "textarea", name: "biography", label: "Biografi Singkat" },
+            { type: "richtext", name: "biography", label: "Biografi Singkat" },
             { type: "number", name: "sort_order", label: "Urutan Tampil" },
           ]}
         />

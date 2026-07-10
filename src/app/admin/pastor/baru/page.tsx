@@ -42,7 +42,7 @@ export default async function NewPastorPage() {
             { type: "date", name: "ordination_date", label: "Tanggal Tahbisan" },
             { type: "number", name: "serve_from", label: "Berkarya Dari (Tahun)" },
             { type: "number", name: "serve_to", label: "Berkarya Sampai (Tahun, kosongkan jika masih aktif)" },
-            { type: "textarea", name: "biography", label: "Biografi Singkat" },
+            { type: "richtext", name: "biography", label: "Biografi Singkat" },
             { type: "number", name: "sort_order", label: "Urutan Tampil" },
           ]}
         />

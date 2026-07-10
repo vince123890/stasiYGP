@@ -21,7 +21,10 @@ function PastorCard({ pastor }: { pastor: Pastor }) {
           ` · ${pastor.serve_from}${pastor.serve_to ? `–${pastor.serve_to}` : '–sekarang'}`}
       </p>
       {pastor.biography && (
-        <p className="mt-3 text-sm leading-relaxed text-parish-800/90">{pastor.biography}</p>
+        <div
+          className="prose prose-parish prose-sm mt-3 max-w-none text-parish-800/90"
+          dangerouslySetInnerHTML={{ __html: pastor.biography }}
+        />
       )}
     </Card>
   );

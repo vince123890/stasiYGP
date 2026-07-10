@@ -38,11 +38,11 @@ export default async function AdminProfilPage({
           fields={[
             { type: "text", name: "stasi_name", label: "Nama Paroki", required: true },
             { type: "text", name: "paroki_name", label: "Nama Paroki Induk" },
-            { type: "textarea", name: "address", label: "Alamat" },
+            { type: "richtext", name: "address", label: "Alamat" },
             { type: "text", name: "phone1", label: "Telepon 1" },
             { type: "text", name: "phone2", label: "Telepon 2" },
             { type: "text", name: "email", label: "Email" },
-            { type: "textarea", name: "office_hours", label: "Jam Operasional" },
+            { type: "richtext", name: "office_hours", label: "Jam Operasional" },
             { type: "text", name: "whatsapp_url", label: "Link WhatsApp" },
             { type: "text", name: "instagram_url", label: "Link Instagram" },
             { type: "text", name: "youtube_url", label: "Link YouTube" },

@@ -32,7 +32,7 @@ export default async function EditSacramentFormPage({
           fields={[
             { type: "text", name: "name", label: "Nama Formulir", required: true },
             { type: "text", name: "category", label: "Kategori", required: true },
-            { type: "textarea", name: "description", label: "Deskripsi" },
+            { type: "richtext", name: "description", label: "Deskripsi" },
             { type: "text", name: "file_url", label: "Link Google Drive", required: true },
             { type: "number", name: "sort_order", label: "Urutan Tampil" },
           ]}

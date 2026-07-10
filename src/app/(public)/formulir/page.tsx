@@ -42,7 +42,10 @@ export default async function FormulirPage() {
                   {f.name}
                 </h3>
                 {f.description && (
-                  <p className="mt-1 text-sm text-parish-700/75">{f.description}</p>
+                  <div
+                    className="prose prose-parish prose-sm mt-1 max-w-none text-parish-700/75"
+                    dangerouslySetInnerHTML={{ __html: f.description }}
+                  />
                 )}
                 <span className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-parish-600">
                   Buka di Google Drive

@@ -75,10 +75,13 @@ export default async function ProfilPage() {
           <h3 className="text-sm font-semibold uppercase tracking-wide text-gold-600">
             Kontak & Alamat
           </h3>
-          <p className="flex items-start gap-2 text-sm text-parish-800">
+          <div className="flex items-start gap-2 text-sm text-parish-800">
             <MapPin size={16} className="mt-0.5 shrink-0 text-parish-500" />
-            {profile.address}
-          </p>
+            <div
+              className="prose prose-parish prose-sm max-w-none [&_p]:m-0"
+              dangerouslySetInnerHTML={{ __html: profile.address }}
+            />
+          </div>
           {profile.phone1 && (
             <p className="flex items-center gap-2 text-sm text-parish-800">
               <Phone size={16} className="shrink-0 text-parish-500" />
@@ -92,10 +95,13 @@ export default async function ProfilPage() {
             </p>
           )}
           {profile.office_hours && (
-            <p className="flex items-start gap-2 text-sm text-parish-800">
+            <div className="flex items-start gap-2 text-sm text-parish-800">
               <Clock size={16} className="mt-0.5 shrink-0 text-parish-500" />
-              {profile.office_hours}
-            </p>
+              <div
+                className="prose prose-parish prose-sm max-w-none [&_p]:m-0"
+                dangerouslySetInnerHTML={{ __html: profile.office_hours }}
+              />
+            </div>
           )}
 
           <div className="space-y-3 pt-2">

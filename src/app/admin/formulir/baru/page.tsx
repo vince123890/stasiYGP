@@ -20,7 +20,7 @@ export default async function NewSacramentFormPage() {
           fields={[
             { type: "text", name: "name", label: "Nama Formulir", required: true },
             { type: "text", name: "category", label: "Kategori", required: true, placeholder: "Sakramen Baptis" },
-            { type: "textarea", name: "description", label: "Deskripsi" },
+            { type: "richtext", name: "description", label: "Deskripsi" },
             {
               type: "text",
               name: "file_url",

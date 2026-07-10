@@ -26,7 +26,7 @@ export default async function NewSocialMinistryPage() {
           action={action}
           fields={[
             { type: "text", name: "name", label: "Nama", required: true },
-            { type: "textarea", name: "description", label: "Deskripsi Singkat" },
+            { type: "richtext", name: "description", label: "Deskripsi Singkat" },
             { type: "select", name: "icon", label: "Ikon", options: ICON_OPTIONS },
             { type: "richtext", name: "activities", label: "Daftar Kegiatan" },
             { type: "number", name: "sort_order", label: "Urutan Tampil" },
