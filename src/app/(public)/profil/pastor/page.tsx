@@ -41,7 +41,7 @@ export default async function PastorPage() {
       <SectionHeading
         eyebrow="Gembala Umat"
         title="Para Pastor"
-        description="Para romo yang melayani dan pernah berkarya di Paroki Yohanes Gabriel Perboyre."
+        description="Para pastor yang melayani dan pernah berkarya di Paroki Yohanes Gabriel Perboyre."
       />
 
       <div className="mt-10 space-y-12">
@@ -49,7 +49,7 @@ export default async function PastorPage() {
           <h2 className="mb-4 text-sm font-semibold uppercase tracking-wide text-gold-600">
             Gembala Kami Saat Ini
           </h2>
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid gap-4">
             {active.map((p) => (
               <PastorCard key={p.id} pastor={p} />
             ))}
@@ -61,7 +61,7 @@ export default async function PastorPage() {
             <h2 className="mb-4 text-sm font-semibold uppercase tracking-wide text-gold-600">
               Pernah Berkarya
             </h2>
-            <div className="grid gap-4 sm:grid-cols-2">
+            <div className="grid gap-4">
               {past.map((p) => (
                 <PastorCard key={p.id} pastor={p} />
               ))}
