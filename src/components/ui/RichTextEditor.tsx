@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import Link from "@tiptap/extension-link";
 import {
   Bold,
   Italic,
@@ -50,7 +49,7 @@ export function RichTextEditor({
   const [html, setHtml] = useState(defaultValue ?? "");
 
   const editor = useEditor({
-    extensions: [StarterKit, Link.configure({ openOnClick: false })],
+    extensions: [StarterKit.configure({ link: { openOnClick: false } })],
     content: defaultValue ?? "",
     immediatelyRender: false,
     onUpdate: ({ editor }) => setHtml(editor.getHTML()),
